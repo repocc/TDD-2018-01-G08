@@ -72,7 +72,13 @@
 ; Para que una expresion sea valida, deben ser validas todas sus sub-expresiones. 
 ; Se deben cumplir cada una de las precondiciones.
 (defn expresion-valida? [funcion-con-argumentos dato estado]
-  (let [ 
+  ;Verifico si no se trata de un valor de un tipo basico
+  (if (not (seq? funcion-con-argumentos))
+    (if (= funcion-con-argumentos true)
+      true
+      ERROR
+    )
+    (let [ 
           funcion     (obtener-nombre-funcion funcion-con-argumentos)
           argumentos  (obtener-argumentos funcion-con-argumentos)
         ]
@@ -83,4 +89,6 @@
       )
     )
   )
+ )
 )
+
