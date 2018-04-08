@@ -33,6 +33,14 @@
   true
 )
 
+(defmethod string-implementa-funcion? 'past [funcion]
+  true
+)
+
+(defmethod string-implementa-funcion? 'counter-value [funcion]
+  true
+)
+
 (defmethod string-implementa-funcion? :default [funcion]
   false
 )
@@ -133,5 +141,41 @@
 )
 
 (defmethod precondiciones-validas? 'current [funcion argumentos dato estado]
+  (validar-tipos funcion argumentos dato estado)
+)
+
+; Definicion de funcion counter-value
+(defmethod funcion? 'counter-value [funcion]
+  true
+)
+
+(defmethod ejecutar-funcion 'counter-value [funcion-con-argumentos dato estado]
+  (let [
+          argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
+          resultado  (counter-value argumentos dato estado)
+        ]
+    resultado
+  )
+)
+
+(defmethod precondiciones-validas? 'counter-value [funcion argumentos dato estado]
+  (validar-tipos funcion argumentos dato estado)
+)
+
+; Definicion de funcion past
+(defmethod funcion? 'past [funcion]
+  true
+)
+
+(defmethod ejecutar-funcion 'past [funcion-con-argumentos dato estado]
+  (let [
+          argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
+          resultado  (past argumentos dato estado)
+        ]
+    resultado
+  )
+)
+
+(defmethod precondiciones-validas? 'past [funcion argumentos dato estado]
   (validar-tipos funcion argumentos dato estado)
 )
