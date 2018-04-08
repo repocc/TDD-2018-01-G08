@@ -76,7 +76,7 @@
   (if (not (seq? funcion-con-argumentos))
     (if (= funcion-con-argumentos true)
       true
-      false
+      ERROR
     )
     (let [ 
           funcion     (obtener-nombre-funcion funcion-con-argumentos)
