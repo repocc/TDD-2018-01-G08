@@ -1,5 +1,6 @@
 ;funciones requeridas en este paquete:
 ;;(defmethod procesarUnaRegla 'define-counter [estado unContadorEnDSL])
+;DSL:
 ;(define-counter   <string>nombre   <vector>parámetrosCondición   <símbolo o lista>fórmulaCondición})
 
 (ns estado.contador
