@@ -18,6 +18,22 @@
   (number-implementa-funcion? funcion)
 )
 
+(defmethod implementa-funcion? clojure.lang.Ratio [funcion argumento dato estado]
+  (number-implementa-funcion? funcion)
+)
+
+(defmethod implementa-funcion? java.lang.Double [funcion argumento dato estado]
+  (number-implementa-funcion? funcion)
+)
+
+(defmethod implementa-funcion? java.math.BigInteger [funcion argumento dato estado]
+  (number-implementa-funcion? funcion)
+)
+
+(defmethod implementa-funcion? java.math.BigDecimal [funcion argumento dato estado]
+  (number-implementa-funcion? funcion)
+)
+
 (defmethod implementa-funcion? java.lang.String [funcion argumento dato estado]
   (string-implementa-funcion? funcion)
 )
