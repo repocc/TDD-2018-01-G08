@@ -1,5 +1,6 @@
 ;funciones requeridas en este paquete:
 ;;(defmethod procesarUnaRegla 'define-signal [estado unaSenyalEnDSL])
+;(define-signal   <mapa>{<string> -> <símbolo o lista>fórmulaSeñal}   <símbolo o lista>fórmulaCondición)
 
 (ns estado.senyal
   (:require
@@ -9,17 +10,15 @@
 (defn agregarSenyal
   "Agrega al mapa de senyales la senyal que se está procesando. Devuelve un nuevo estado con la senyal agregada."
   [estado unaSenyalEnDSL]
-  ;TODO (Iván): cambiar por el de señal:
-  ;(assoc-in estado [':reglas 'define-counter (rest (butlast unContadorEnDSL))] (last unContadorEnDSL)))
-)
+  (assoc-in estado
+    [':reglas 'define-symbol (first (keys (first (rest unaSenyalEnDSL))))]
+    (cons (last unaSenyalEnDSL) '({}))))
 
 ;Multimétodo que matchea para las reglas que definen senyales, se fija si ya está creado el mapa de senyales (si no, entonces lo crea), y se fija si la senyal específica que se está procesando ya había sido agregada (si no, entonces la agrega al mapa de senyales). Devuelve un nuevo estado con la senyal agregada.
 (defmethod procesarUnaRegla
   'define-signal [estado unaSenyalEnDSL]
-  TODO (Iván): Cambiar por lo de senyales.
-  ; (if (contains? (:reglas estado) 'define-counter) ;Si contiene el mapa de contadores...
-  ;   (if (contains? (:define-counter (:reglas estado)) (rest (butlast unContadorEnDSL))) ; Si contiene este contador en particular en el mapa de contadores.
-  ;     (estado) ;Ya hay un contador idéntico.
-  ;     (agregarContador estado unContadorEnDSL))
-  ;   (agregarContador (agregarMapaDeReglasEspecificas estado 'define-counter) unContadorEnDSL)))
-)
+  (if (contains? (:reglas estado) 'define-signal) ;Si contiene el mapa de contadores...
+    (if (contains? (:define-signal (:reglas estado)) (first (keys (first (rest unaSenyalEnDSL)))))) ; Si contiene esta señal en particular en el mapa de señales.
+      (estado) ;Ya hay una señal idéntica.
+      (agregarSenyal estado unaSenyalEnDSL))
+    (agregarSenyal (agregarMapaDeReglasEspecificas estado 'define-signal) unaSenyalEnDSL))))

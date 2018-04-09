@@ -1,5 +1,6 @@
 ;funciones requeridas en este paquete:
 ;;(defmethod procesarUnaRegla 'define-counter [estado unContadorEnDSL])
+;(define-counter   <string>nombre   <vector>parámetrosCondición   <símbolo o lista>fórmulaCondición})
 
 (ns estado.contador
   (:require
@@ -9,7 +10,7 @@
 (defn agregarContador
   "Agrega al mapa de contadores el contador que se está procesando. Devuelve un nuevo estado con el contador agregado."
   [estado unContadorEnDSL]
-  (assoc-in estado [':reglas 'define-counter (rest (butlast unContadorEnDSL))] (last unContadorEnDSL)))
+  (assoc-in estado [':reglas 'define-counter (rest (butlast unContadorEnDSL))] (list (last unContadorEnDSL) {})))
 
 ;Multimétodo que matchea para las reglas que definen contadores, se fija si ya está creado el mapa de contadores (si no, entonces lo crea), y se fija si el contador específico que se está procesando ya había sido agregado (si no, entonces lo agrega al mapa de contadores). Devuelve un nuevo estado con el contador agregado.
 (defmethod procesarUnaRegla

@@ -6,10 +6,6 @@
     [estado.estado :refer :all]
     [estado.contador :refer :all] :reload-all))
 
-;Multimétodo que matchea para las reglas que definen señales. TODO(Iván): Explicar más.
-(defmethod procesarUnaRegla
-  'define-signal [estado unaSenyalEnDSL])
-
 ;Multimétodo que matchea para reglas desconocidas. Deja el estado tal cual estaba, no introduce cambios. Devuelve el mismo estado que recibió y consume la regla sin modificar nada.
 (defmethod procesarUnaRegla
   :default [estado unaSenyalEnDSL] estado)
