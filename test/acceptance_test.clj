@@ -28,12 +28,13 @@
   [state new-data]
   (first (process-data state new-data)))
 
-(comment
+
 ;Counter "spam" must have value = 0 right after processor initialization.
 (deftest initial-state-test
   (testing "Query counter from initial state"
     (is (= 0 (query-counter (initialize-processor rules) "spam" []))))) ;Probably the intended counter name was "spam-count", counter "spam" wasn't defined in "rules".
 
+(comment
 (deftest unconditional-counter-test
   (testing "Counter \"email-count\" has no parameters, so it should increment it's only value every time the condition is met."
   (let [

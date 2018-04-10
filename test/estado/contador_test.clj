@@ -14,21 +14,24 @@
         (:reglas (agregarContador estado reglasEjemplo/reglaContadorLlamadoTotalSinParametrosYCondicionTrue))
         'define-counter)))))))
 
-(deftest test-agregarContador-en-un-estado-sin-ningun-contador-agrega-un-contador-con-el-nombre-y-la-lista-de-parametros-como-clave
+(deftest test-agregarContador-en-un-estado-sin-ningun-contador-agrega-un-contador-con-el-nombre-como-clave
   (let [estado (assoc-in (Estado. {}) [':reglas 'define-counter] {})]
     (is (=
       (keys (get
         (:reglas (agregarContador estado reglasEjemplo/reglaContadorLlamadoTotalSinParametrosYCondicionTrue))
         'define-counter))
-      (list (rest (butlast reglasEjemplo/reglaContadorLlamadoTotalSinParametrosYCondicionTrue)))))))
+      (list (nth reglasEjemplo/reglaContadorLlamadoTotalSinParametrosYCondicionTrue 1))))))
 
-(deftest test-agregarContador-en-un-estado-sin-ningun-contador-agrega-un-contador-con-una-lista-de-la-condicion-y-un-mapa-vacio-de-acumuladores-como-valor
+(deftest test-agregarContador-en-un-estado-sin-ningun-contador-agrega-un-contador-con-una-lista-de-los-parametros-y-la-condicion-y-un-mapa-vacio-de-acumuladores-como-valor
   (let [estado (assoc-in (Estado. {}) [':reglas 'define-counter] {})]
     (is (=
       (vals (get
         (:reglas (agregarContador estado reglasEjemplo/reglaContadorLlamadoTotalSinParametrosYCondicionTrue))
         'define-counter))
-      (list (list (last reglasEjemplo/reglaContadorLlamadoTotalSinParametrosYCondicionTrue) {}))))))
+      (list (list
+        (nth reglasEjemplo/reglaContadorLlamadoTotalSinParametrosYCondicionTrue 2)
+        (nth reglasEjemplo/reglaContadorLlamadoTotalSinParametrosYCondicionTrue 3)
+        {}))))))
 
 (deftest test-procesarUnaRegla-de-contador-con-estado-vacio-crea-el-mapa-de-contadores
   (let [estado (Estado. {})]

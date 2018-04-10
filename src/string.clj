@@ -151,15 +151,17 @@
 
 (defmethod ejecutar-funcion 'counter-value [funcion-con-argumentos dato estado]
   (let [
-          argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
-          resultado  (counter-value argumentos dato estado)
-        ]
+        argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
+        ;resultado  (counter-value argumentos dato estado)
+        resultado  (counter-value (first argumentos) (second argumentos))
+       ]
     resultado
-  )
+ )
 )
 
 (defmethod precondiciones-validas? 'counter-value [funcion argumentos dato estado]
-  (validar-tipos funcion argumentos dato estado)
+  ;(validar-tipos funcion argumentos dato estado)
+  true
 )
 
 ; Definicion de funcion past
