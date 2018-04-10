@@ -74,7 +74,7 @@
 (defn expresion-valida? [funcion-con-argumentos dato estado]
   ;Verifico si no se trata de un valor de un tipo basico
   (if (not (seq? funcion-con-argumentos))
-    (if (= funcion-con-argumentos true)
+    (if (or (= funcion-con-argumentos true) (= funcion-con-argumentos false))
       true
       false
     )
