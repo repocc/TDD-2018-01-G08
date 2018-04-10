@@ -8,15 +8,13 @@
 (ns data-processor
   (:require
     [inicializar :refer :all]
-    [estado.estado :refer :all] :reload-all))
+    [estado.estado :refer :all]
+    [procesar :refer :all] :reload-all))
 
 (defn process-data
   "TODO(Iván): add description."
   [estado datos]
-  ;TODO(Iván)
-  ; Obtengo todas las señales, y genero todos los resultados y los adjunto al estado.
-  ; Obtengo todos los contadores, y genero todos los incrementos "en" el estado.
-  ()
+  (procesar/procesar estado datos)
 )
 
 (defn query-counter

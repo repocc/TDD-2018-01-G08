@@ -7,7 +7,7 @@
 
 ; Los parámetros de esta función son: el estado, el contadorNombre (que es un string), y el contadorParametros (que es un vector de parámetros, los parámetros pueden ser listas o tipos básicos, si un parámetro del vector es una lista, es porque es una función ejecutable que devuelve uno de los tipos básicos, si es un tipo básico se lo usa tal cual (string, booleano, o número).
 (defn consultarContador
-"TODO(Iván)"
+  "TODO(Iván): Agregar descripción."
   [estado contadorNombre contadorParametros]
   (if (every? true? (map (fn [parametro] (expresion-valida? parametro {} estado)) contadorParametros))
     (let [

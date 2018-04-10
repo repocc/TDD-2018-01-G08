@@ -1,7 +1,8 @@
 (ns string
   (require  [definiciones :refer :all])
   (require  [procesamiento :refer :all])
-  (require  [clojure.string :as str]))
+  (require  [clojure.string :as str])
+  (require  [estado.estado :refer :all]))
 
 (defmulti string-implementa-funcion? (fn [funcion] funcion))
 
@@ -153,7 +154,7 @@
   (let [
         argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
         ;resultado  (counter-value argumentos dato estado)
-        resultado  (counter-value (first argumentos) (second argumentos))
+        resultado  (consultarContador estado (first argumentos) (second argumentos))
        ]
     resultado
  )
@@ -172,7 +173,8 @@
 (defmethod ejecutar-funcion 'past [funcion-con-argumentos dato estado]
   (let [
           argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
-          resultado  (past argumentos dato estado)
+          ;resultado  (past argumentos dato estado)
+          resultado  true
         ]
     resultado
   )

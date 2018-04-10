@@ -34,7 +34,6 @@
   (testing "Query counter from initial state"
     (is (= 0 (query-counter (initialize-processor rules) "spam" []))))) ;Probably the intended counter name was "spam-count", counter "spam" wasn't defined in "rules".
 
-(comment
 (deftest unconditional-counter-test
   (testing "Counter \"email-count\" has no parameters, so it should increment it's only value every time the condition is met."
   (let [
@@ -43,6 +42,7 @@
       st2 (process-data-dropping-signals st1 {"spam" true})]
     (is (= 2 (query-counter st2 "email-count" []))))))
 
+(comment
 (deftest conditional-counter-test
   (testing "Count incoming data by current condition"
     (testing "when repeated"
