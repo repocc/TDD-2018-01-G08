@@ -16,7 +16,7 @@
           (get-in estado [:reglas 'define-counter contadorNombre :acumuladores]) ;Agarro el mapa de acumuladores que tiene por clave.
           (map (fn [parametro] (ejecutar-funcion parametro {} estado)) contadorParametros) ;Me genero una lista con los valores de la evaluación de los parámetros del contador. Listas y vectores son intercambiables al usarlos como clave de un mapa.
         )] ; Obtengo el valor del acumulador del contador para la combinación específica de parámetros.
-      (if (empty? acumulador)
+      (if (nil? acumulador)
         0 ;Si el acumulador no existía (para esa combinación de parámetros no se contó ningun dato aún.
         acumulador)) ;Si el acumulador si existía (tip: el valor va a ser >0.
     ERROR)) ;TODO(Iván): esto es temporal definir algo como ERROR.
