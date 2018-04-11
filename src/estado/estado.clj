@@ -13,7 +13,7 @@
     (let [
       acumulador
         (get
-          (nth (get (get (:reglas estado) 'define-counter) contadorNombre) 2) ;Agarro el mapa de acumuladores que tiene por clave.
+          (get-in estado [:reglas 'define-counter contadorNombre :acumuladores]) ;Agarro el mapa de acumuladores que tiene por clave.
           (map (fn [parametro] (ejecutar-funcion parametro {} estado)) contadorParametros) ;Me genero una lista con los valores de la evaluación de los parámetros del contador. Listas y vectores son intercambiables al usarlos como clave de un mapa.
         )] ; Obtengo el valor del acumulador del contador para la combinación específica de parámetros.
       (if (empty? acumulador)
