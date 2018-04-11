@@ -24,6 +24,12 @@
     [(current "spam") (current "important")] ;Since "current returns a boolean, 4 values will be stored for this counter (True-False; F-T, T-T, and F-F)".
     true)))
 
+; (define-counter "email-count"          []                                       true)
+; (define-counter "spam-count"           []                                       (current "spam"))
+; (define-counter "spam-important-table" [(current "spam") (current "important")] true)))
+;
+; (define-signal {"spam-fraction" (/ (counter-value "spam-count" []) (counter-value "email-count" []))} true)
+
 (defn process-data-dropping-signals
   [state new-data]
   (first (process-data state new-data)))
@@ -40,9 +46,9 @@
       st0 (initialize-processor rules)
       st1 (process-data-dropping-signals st0 {"spam" true})
       st2 (process-data-dropping-signals st1 {"spam" true})]
+    (println st2)
     (is (= 2 (query-counter st2 "email-count" []))))))
 
-(comment
 (deftest conditional-counter-test
   (testing "Count incoming data by current condition"
     (testing "when repeated"
@@ -51,6 +57,7 @@
           st1 (process-data-dropping-signals st0 {"spam" true})
           st2 (process-data-dropping-signals st1 {"spam" true})
           st3 (process-data-dropping-signals st2 {"spam" true})]
+        ;(println st3)
         (is (= 3 (query-counter st3 "spam-count" [])))))
     (testing "when ignored field varies"
       (let [
@@ -58,6 +65,7 @@
           st1 (process-data-dropping-signals st0 {"spam" true, "noise" 1})
           st2 (process-data-dropping-signals st1 {"spam" true, "noise" 2})
           st3 (process-data-dropping-signals st2 {"spam" true, "noise" 3})]
+        ;(println st3)
         (is (= 3 (query-counter st3 "spam-count" [])))))
     (testing "when considered field varies"
       (let [
@@ -65,8 +73,9 @@
           st1 (process-data-dropping-signals st0 {"spam" true})
           st2 (process-data-dropping-signals st1 {"spam" false})
           st3 (process-data-dropping-signals st2 {"spam" true})]
+        ;(println st3)
         (is (= 2 (query-counter st3 "spam-count" []))))))) ;Considered field varies but it is not a parameter of the counter, and the querying function is called with no parameters, so there's no counting of "non-spam emails" and only one value to return.
-
+(comment
 ;TODO: (contingency-table-counter-test) is failing all 4 asserts.
 (deftest contingency-table-counter-test
   (let [
