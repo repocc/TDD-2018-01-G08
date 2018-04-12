@@ -21,16 +21,16 @@
 
 (defn obtenerParametrosEvaluados
   "TODO(Iván): Agregar descripción."
-  [estado parametros]
-  (map (fn [parametro] (ejecutar-funcion parametro {} estado)) parametros) ;Me genero una lista con los valores de la evaluación de los parámetros del contador. Listas y vectores son intercambiables al usarlos como clave de un mapa.
+  [estado dato parametros]
+  (map (fn [parametro] (ejecutar-funcion parametro dato estado)) parametros) ;Me genero una lista con los valores de la evaluación de los parámetros del contador. Listas y vectores son intercambiables al usarlos como clave de un mapa.
 )
 
 (defn procesarParametrosDeUnaRegla
   "TODO(Iván): Agregar descripción."
-  [estado contadorNombre contadorResto] ;"contadorResto" es un mapa de tres elementos: :parametros, :condicion, :acumuladores.
+  [estado dato contadorNombre contadorResto] ;"contadorResto" es un mapa de tres elementos: :parametros, :condicion, :acumuladores.
   (if (every? true? (map (fn [parametro] (expresion-valida? parametro {} estado)) (contadorResto :parametros)))
     (let [
-      parametrosEvaluados (obtenerParametrosEvaluados estado (contadorResto :parametros))]
+      parametrosEvaluados (obtenerParametrosEvaluados estado dato (contadorResto :parametros))]
       (incrementarAcumuladorCorrespondiente estado contadorNombre parametrosEvaluados)
     )
     estado))
@@ -45,7 +45,7 @@
     (and
       (expresion-valida? (contadorResto :condicion) dato estado)
       (ejecutar-funcion (contadorResto :condicion) dato estado)) ;"and" cortocircuita, así que no hay error acá. Si no es válida, no la evalúa.
-    (list (procesarParametrosDeUnaRegla estado contadorNombre contadorResto) dato) ;Evaluar parámetros e incrementar acumulador correspondiente.
+    (list (procesarParametrosDeUnaRegla estado dato contadorNombre contadorResto) dato) ;Evaluar parámetros e incrementar acumulador correspondiente.
     (list estado dato))))
 
 (defn procesar
