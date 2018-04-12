@@ -76,7 +76,7 @@
           st3 (process-data-dropping-signals st2 {"spam" true})]
         ;(println st3)
         (is (= 2 (query-counter st3 "spam-count" []))))))) ;Considered field varies but it is not a parameter of the counter, and the querying function is called with no parameters, so there's no counting of "non-spam emails" and only one value to return.
-(comment
+
 ;TODO: (contingency-table-counter-test) is failing all 4 asserts.
 (deftest contingency-table-counter-test
   (let [
@@ -104,7 +104,7 @@
       [st1 sg1] (process-data st0 {})]
     (is (= '() sg1)) ;TODO: fallaba antes de refactor.
 ))
-
+(comment
 ;TODO: (signal-launch-test) is failing and erroring.
 (deftest signal-launch-test
   (let [
@@ -120,7 +120,7 @@
       0.49 (get (first sg3) "spam-fraction")
       0.51)) ;TODO: erroreaba antes de refactor.
 ))
-
+;(comment
 ;TODO: (past-value-test) is failing all 5 asserts.
 (deftest past-value-test
   (let [

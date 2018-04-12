@@ -25,7 +25,7 @@
   (map (fn [parametro] (ejecutar-funcion parametro dato estado)) parametros) ;Me genero una lista con los valores de la evaluación de los parámetros del contador. Listas y vectores son intercambiables al usarlos como clave de un mapa.
 )
 
-(defn procesarParametrosDeUnaRegla
+(defn procesarParametrosDeUnContador
   "TODO(Iván): Agregar descripción."
   [estado dato contadorNombre contadorResto] ;"contadorResto" es un mapa de tres elementos: :parametros, :condicion, :acumuladores.
   (if (every? true? (map (fn [parametro] (expresion-valida? parametro {} estado)) (contadorResto :parametros)))
@@ -35,7 +35,7 @@
     )
     estado))
 
-(defn procesarUnaReglaContador
+(defn procesarUnContador
   "TODO(Iván): Agregar descripción."
   [estadoYDato contadorNombre contadorResto] ;"contadorResto" es un mapa de tres elementos: :parametros, :condicion, :acumuladores.
   (let [
@@ -45,14 +45,33 @@
     (and
       (expresion-valida? (contadorResto :condicion) dato estado)
       (ejecutar-funcion (contadorResto :condicion) dato estado)) ;"and" cortocircuita, así que no hay error acá. Si no es válida, no la evalúa.
-    (list (procesarParametrosDeUnaRegla estado dato contadorNombre contadorResto) dato) ;Evaluar parámetros e incrementar acumulador correspondiente.
+    (list (procesarParametrosDeUnContador estado dato contadorNombre contadorResto) dato) ;Evaluar parámetros e incrementar acumulador correspondiente.
     (list estado dato))))
+
+; (defn procesarUnaSenyal
+;   "TODO(Iván): Agregar descripción."
+;   [estadoYDato senyalNombre senyalResto]
+;   (let [
+;     estado (first estadoYDato)
+;     dato   (last estadoYDato)]
+;   (if
+;     (and
+;       (expresion-valida? (senyalResto :condicion) dato estado)
+;       (ejecutar-funcion (senyalResto :condicion) dato estado)) ;"and" cortocircuita, así que no hay error acá. Si no es válida, no la evalúa.
+;     (list (procesarParametrosDeUnaSenyal estado dato senyalNombre senyalResto) dato)
+;     (list estado dato))))
 
 (defn procesar
   "TODO(Iván): Agregar descripción."
-  [estado datos]
+  [estado dato]
   ;TODO(Iván): Obtengo todas las señales, y genero todos los resultados y los adjunto al estado.
-  (let [mapaDeReglas (get (:reglas estado) 'define-counter)] ;El mapa de "nombre de regla" a "resto de la regla".
-    (reduce-kv procesarUnaReglaContador (list estado datos) mapaDeReglas) ;"estado" se va transformando en el nuevo estado actualizado con el reduce."
+  (let [
+    mapaDeSenyales   (get (:reglas estado) 'define-signal) ;El mapa de "nombre de la señal" a "resto de la señal".
+    mapaDeContadores (get (:reglas estado) 'define-counter)] ;El mapa de "nombre del contador" a "resto del contador".
+    (let [
+      ;nuevoEstadoConResultadosYDato (reduce-kv procesarUnaSenyal (list estado dato) mapaDeSenyales)
+      nuevoEstadoYDato              (reduce-kv procesarUnContador (list estado dato) mapaDeContadores)] ;"estado" se va transformando en el nuevo estado actualizado con el reduce. Se pone el estado en una lista con el dato para poder aprovechar la recursividad de la funcion "reduce-kv"."
+      ;[(first nuevoEstadoYDato) (resultados)]) ;La salida esperada es un vector con el estado en la primera posición, y los resultado en la segunda.
+      [(first nuevoEstadoYDato) ()]) ;TODO QUITAR
   )
 )

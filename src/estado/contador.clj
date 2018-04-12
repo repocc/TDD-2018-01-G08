@@ -12,7 +12,7 @@
     [estado :refer :all] :reload-all))
 
 (defn agregarContador
-  "Agrega al mapa de contadores el contador que se está procesando. Devuelve un nuevo estado con el contador agregado."
+  "Agrega al mapa de contadores el contador que se está procesando. Devuelve un nuevo estado con el contador agregado. No se permiten contadores con nombres repetidos, las agregaciones de repetidos posteriores pisan a las anteriores."
   [estado unContadorEnDSL]
   (assoc-in
     estado

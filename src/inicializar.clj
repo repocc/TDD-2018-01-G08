@@ -4,13 +4,14 @@
 (ns inicializar
   (:require
     [estado :refer :all]
-    [estado.contador :refer :all] :reload-all))
+    [estado.contador :refer :all]
+    [estado.senyal :refer :all] :reload-all))
 
 ;Multimétodo que matchea para reglas desconocidas. Deja el estado tal cual estaba, no introduce cambios. Devuelve el mismo estado que recibió y consume la regla sin modificar nada.
 (defmethod procesarUnaRegla
   :default [estado unaSenyalEnDSL] estado)
 
-(defn procesarListaDeReglas
+(defn cargarListaDeReglas
   "Recibe una lista de reglas expresadas en el lenguage específico de dominio (DSL), cada una de las cuales se representa como una lista. Retorna el estado de un sistema recién creado."
   ;Formato de lista de reglas: ((<regla en DSL>)*)
   [listaDeReglasEnDSL]
