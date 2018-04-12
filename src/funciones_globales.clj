@@ -48,7 +48,7 @@
 )
 
 (defmethod ejecutar-funcion :default [funcion-con-argumentos dato estado]
-  false
+  funcion-con-argumentos
 )
 
 (defmethod funcion? :default [funcion]

@@ -125,7 +125,6 @@
           tipos-validos (validar-tipos funcion argumentos dato estado)
           sin-ceros     (validar-no-existencia-cero funcion argumentos dato estado)
         ]
-    
     (and tipos-validos sin-ceros)
   )
 )

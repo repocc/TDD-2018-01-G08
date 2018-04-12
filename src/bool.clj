@@ -24,14 +24,6 @@
   true
 )
 
-(defmethod boolean-implementa-funcion? 'true [funcion]
-  true
-)
-
-(defmethod boolean-implementa-funcion? 'false [funcion]
-  true
-)
-
 (defmethod boolean-implementa-funcion? :default [funcion]
   false
 )
@@ -46,7 +38,7 @@
           argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
           resultado  (apply some true? [argumentos])
         ]
-
+    
     (if (= resultado nil)
       false
       true
@@ -95,30 +87,4 @@
 
 (defmethod precondiciones-validas? 'not [funcion argumentos dato estado]
   (validar-tipos funcion argumentos dato estado)
-)
-
-; Definicion de funcion true
-(defmethod funcion? 'true [funcion]
-  true
-)
-
-(defmethod ejecutar-funcion 'true [funcion-con-argumentos dato estado]
-  true
-)
-
-(defmethod precondiciones-validas? 'true [funcion argumentos dato estado]
-  true
-)
-
-; Definicion de funcion false
-(defmethod funcion? 'false [funcion]
-  true
-)
-
-(defmethod ejecutar-funcion 'false [funcion-con-argumentos dato estado]
-  false
-)
-
-(defmethod precondiciones-validas? 'false [funcion argumentos dato estado]
-  true
 )

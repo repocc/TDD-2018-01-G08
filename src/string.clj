@@ -151,12 +151,12 @@
 
 (defmethod ejecutar-funcion 'counter-value [funcion-con-argumentos dato estado]
   (let [
-        argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
-        ;resultado  (counter-value argumentos dato estado)
-        resultado  (counter-value (first argumentos) (second argumentos))
-       ]
+          argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
+          ;resultado  (counter-value argumentos dato estado)
+          resultado  (counter-value (first argumentos) (second argumentos) estado)
+        ]
     resultado
- )
+  )
 )
 
 (defmethod precondiciones-validas? 'counter-value [funcion argumentos dato estado]
@@ -169,6 +169,15 @@
   true
 )
 
+(defn past [argumento dato estado]
+  (let [
+          campo       (first argumento)
+          valor_campo (get dato campo)
+        ]
+    (= valor_campo true)
+  )
+)
+
 (defmethod ejecutar-funcion 'past [funcion-con-argumentos dato estado]
   (let [
           argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
@@ -179,5 +188,6 @@
 )
 
 (defmethod precondiciones-validas? 'past [funcion argumentos dato estado]
-  (validar-tipos funcion argumentos dato estado)
+  ;(validar-tipos funcion argumentos dato estado)
+  false
 )
