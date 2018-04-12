@@ -3,6 +3,6 @@
     [clojure.test :refer :all]
     [estado.senyal :refer :all]
     [setup.reglas-ejemplo :as reglasEjemplo] :reload-all)
-  (:import [estado.estado Estado]))
+  (:import [estado Estado]))
 
 ;TODO(Iván): Test agregarSenyal y procesarUnaRegla.

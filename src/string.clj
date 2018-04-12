@@ -2,7 +2,7 @@
   (require  [definiciones :refer :all])
   (require  [procesamiento :refer :all])
   (require  [clojure.string :as str])
-  (require  [estado.estado :refer :all]))
+  (require  [estado :refer :all]))
 
 ; Definicion de funcion concat
 (defmethod funcion? 'concat [funcion]

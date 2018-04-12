@@ -11,8 +11,7 @@
 
 (ns estado.senyal
   (:require
-    [inicializar-auxiliares :refer :all]
-    [estado.estado :refer :all] :reload-all))
+    [estado :refer :all] :reload-all))
 
 (defn agregarSenyal
   "Agrega al mapa de senyales la senyal que se está procesando. Devuelve un nuevo estado con la senyal agregada."

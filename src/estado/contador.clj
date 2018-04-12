@@ -9,8 +9,7 @@
 
 (ns estado.contador
   (:require
-    [inicializar-auxiliares :refer :all]
-    [estado.estado :refer :all] :reload-all))
+    [estado :refer :all] :reload-all))
 
 (defn agregarContador
   "Agrega al mapa de contadores el contador que se está procesando. Devuelve un nuevo estado con el contador agregado."

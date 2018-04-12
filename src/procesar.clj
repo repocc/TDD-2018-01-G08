@@ -1,6 +1,6 @@
 (ns procesar
   (:require
-    [estado.estado :refer :all]
+    [estado :refer :all]
     [definiciones :refer :all]
     [procesamiento :refer :all]
     [bool :refer :all]

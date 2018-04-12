@@ -3,7 +3,7 @@
 
 (ns inicializar
   (:require
-    [estado.estado :refer :all]
+    [estado :refer :all]
     [estado.contador :refer :all] :reload-all))
 
 ;Multimétodo que matchea para reglas desconocidas. Deja el estado tal cual estaba, no introduce cambios. Devuelve el mismo estado que recibió y consume la regla sin modificar nada.
@@ -15,10 +15,8 @@
   ;Formato de lista de reglas: ((<regla en DSL>)*)
   [listaDeReglasEnDSL]
   ;TODO(Iván): comprobar que sea una lista.
-  (let [estado (estado.estado.Estado. {})] ;Empiezo con un estado vacío.
+  (let [estado (estado.Estado. {})] ;Empiezo con un estado vacío.
     (reduce
       (fn [estado unaReglaEnDSL] (procesarUnaRegla estado unaReglaEnDSL)) ;TODO(Iván): antes del multimétodo, ver que tenga el formato DSL apropiado.
       estado
       listaDeReglasEnDSL)))
-
-(load "inicializar_auxiliares")

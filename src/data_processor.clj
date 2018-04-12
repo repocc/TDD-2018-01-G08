@@ -8,7 +8,7 @@
 (ns data-processor
   (:require
     [inicializar :refer :all]
-    [estado.estado :refer :all]
+    [estado :refer :all]
     [procesar :refer :all] :reload-all))
 
 (defn process-data
@@ -20,7 +20,7 @@
 (defn query-counter
   "TODO(Iván): add description."
   [estado contadorNombre contadorParametros]
-  (estado.estado/consultarContador estado contadorNombre contadorParametros))
+  (estado/consultarContador estado contadorNombre contadorParametros))
 
 (defn initialize-processor
   "Recibe una lista de reglas expresadas en el lenguage específico de dominio (DSL), cada una de las cuales se representa como una lista. Retorna el estado de un sistema recién creado."
