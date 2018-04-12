@@ -24,6 +24,13 @@
     [(current "spam") (current "important")] ;Since "current returns a boolean, 4 values will be stored for this counter (True-False; F-T, T-T, and F-F)".
     true)))
 
+;Lo anterior formateado:
+; (define-counter "email-count"          []                                       true)
+; (define-counter "spam-count"           []                                       (current "spam"))
+; (define-counter "spam-important-table" [(current "spam") (current "important")] true)))
+;
+; (define-signal {"spam-fraction" (/ (counter-value "spam-count" []) (counter-value "email-count" []))} true)
+
 (defn process-data-dropping-signals
   [state new-data]
   (first (process-data state new-data)))
@@ -34,13 +41,13 @@
   (testing "Query counter from initial state"
     (is (= 0 (query-counter (initialize-processor rules) "spam" []))))) ;Probably the intended counter name was "spam-count", counter "spam" wasn't defined in "rules".
 
-
 (deftest unconditional-counter-test
   (testing "Counter \"email-count\" has no parameters, so it should increment it's only value every time the condition is met."
   (let [
       st0 (initialize-processor rules)
       st1 (process-data-dropping-signals st0 {"spam" true})
       st2 (process-data-dropping-signals st1 {"spam" true})]
+    ;(println st2)
     (is (= 2 (query-counter st2 "email-count" []))))))
 
 (deftest conditional-counter-test
@@ -51,6 +58,7 @@
           st1 (process-data-dropping-signals st0 {"spam" true})
           st2 (process-data-dropping-signals st1 {"spam" true})
           st3 (process-data-dropping-signals st2 {"spam" true})]
+        ;(println st3)
         (is (= 3 (query-counter st3 "spam-count" [])))))
     (testing "when ignored field varies"
       (let [
@@ -58,6 +66,7 @@
           st1 (process-data-dropping-signals st0 {"spam" true, "noise" 1})
           st2 (process-data-dropping-signals st1 {"spam" true, "noise" 2})
           st3 (process-data-dropping-signals st2 {"spam" true, "noise" 3})]
+        ;(println st3)
         (is (= 3 (query-counter st3 "spam-count" [])))))
     (testing "when considered field varies"
       (let [
@@ -139,4 +148,3 @@
       '({"repeated" 2})
       sg5)) ;TODO: fallaba antes de refactor.
 ))
-
