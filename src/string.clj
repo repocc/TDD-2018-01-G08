@@ -1,8 +1,49 @@
 (ns string
   (require  [definiciones :refer :all])
   (require  [procesamiento :refer :all])
-  (require  [clojure.string :as str])
-  (require  [estado.estado :refer :all]))
+  (require  [clojure.string :as str]))
+
+(defmulti string-implementa-funcion? (fn [funcion] funcion))
+
+(defmethod string-implementa-funcion? '= [funcion]
+  true
+)
+
+(defmethod string-implementa-funcion? '!= [funcion]
+  true
+)
+
+(defmethod string-implementa-funcion? 'concat [funcion]
+  true
+)
+
+(defmethod string-implementa-funcion? 'includes? [funcion]
+  true
+)
+
+(defmethod string-implementa-funcion? 'starts-with? [funcion]
+  true
+)
+
+(defmethod string-implementa-funcion? 'ends-with? [funcion]
+  true
+)
+
+(defmethod string-implementa-funcion? 'current [funcion]
+  true
+)
+
+(defmethod string-implementa-funcion? 'past [funcion]
+  true
+)
+
+(defmethod string-implementa-funcion? 'counter-value [funcion]
+  true
+)
+
+(defmethod string-implementa-funcion? :default [funcion]
+  false
+)
 
 ; Definicion de funcion concat
 (defmethod funcion? 'concat [funcion]
@@ -110,12 +151,12 @@
 
 (defmethod ejecutar-funcion 'counter-value [funcion-con-argumentos dato estado]
   (let [
-        argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
-        ;resultado  (counter-value argumentos dato estado)
-        resultado  (consultarContador estado (first argumentos) (second argumentos))
-       ]
+          argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
+          ;resultado  (counter-value argumentos dato estado)
+          resultado  (counter-value (first argumentos) (second argumentos) estado)
+        ]
     resultado
- )
+  )
 )
 
 (defmethod precondiciones-validas? 'counter-value [funcion argumentos dato estado]
@@ -128,16 +169,25 @@
   true
 )
 
+(defn past [argumento dato estado]
+  (let [
+          campo       (first argumento)
+          valor_campo (get dato campo)
+        ]
+    (= valor_campo true)
+  )
+)
+
 (defmethod ejecutar-funcion 'past [funcion-con-argumentos dato estado]
   (let [
           argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
-          ;resultado  (past argumentos dato estado)
-          resultado  true
+          resultado  (past argumentos dato estado)
         ]
     resultado
   )
 )
 
 (defmethod precondiciones-validas? 'past [funcion argumentos dato estado]
-  (validar-tipos funcion argumentos dato estado)
+  ;(validar-tipos funcion argumentos dato estado)
+  false
 )

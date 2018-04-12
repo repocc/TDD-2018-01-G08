@@ -2,8 +2,60 @@
   (require  [definiciones :refer :all])
   (require  [procesamiento :refer :all]))
 
+(defmulti number-implementa-funcion? (fn [funcion] funcion))
+
+(defmethod number-implementa-funcion? '= [funcion]
+  true
+)
+
+(defmethod number-implementa-funcion? '!= [funcion]
+  true
+)
+
+(defmethod number-implementa-funcion? '+ [funcion]
+  true
+)
+
+(defmethod number-implementa-funcion? '- [funcion]
+  true
+)
+
+(defmethod number-implementa-funcion? '* [funcion]
+  true
+)
+
+(defmethod number-implementa-funcion? '/ [funcion]
+  true
+)
+
+(defmethod number-implementa-funcion? 'mod [funcion]
+  true
+)
+
+(defmethod number-implementa-funcion? '< [funcion]
+  true
+)
+
+(defmethod number-implementa-funcion? '> [funcion]
+  true
+)
+
+(defmethod number-implementa-funcion? '<= [funcion]
+  true
+)
+
+(defmethod number-implementa-funcion? '>= [funcion]
+  true
+)
+
+(defmethod number-implementa-funcion? :default [funcion]
+  false
+)
+
 ; Definicion de funcion +
-(defmethod funcion? '+ [funcion] true)
+(defmethod funcion? '+ [funcion]
+  true
+)
 
 (defmethod ejecutar-funcion '+ [funcion-con-argumentos dato estado]
   (let [
@@ -15,10 +67,13 @@
 )
 
 (defmethod precondiciones-validas? '+ [funcion argumentos dato estado]
-  (validar-tipos funcion argumentos dato estado))
+  (validar-tipos funcion argumentos dato estado)
+)
 
 ; Definicion de funcion -
-(defmethod funcion? '- [funcion] true)
+(defmethod funcion? '- [funcion]
+  true
+)
 
 (defmethod ejecutar-funcion '- [funcion-con-argumentos dato estado]
   (let [
@@ -34,7 +89,9 @@
 )
 
 ; Definicion de funcion *
-(defmethod funcion? '* [funcion] true)
+(defmethod funcion? '* [funcion]
+  true
+)
 
 (defmethod ejecutar-funcion '* [funcion-con-argumentos dato estado]
   (let [
@@ -50,7 +107,9 @@
 )
 
 ; Definicion de funcion /
-(defmethod funcion? '/ [funcion] true)
+(defmethod funcion? '/ [funcion]
+  true
+)
 
 (defmethod ejecutar-funcion '/ [funcion-con-argumentos dato estado]
   (let [
@@ -66,13 +125,14 @@
           tipos-validos (validar-tipos funcion argumentos dato estado)
           sin-ceros     (validar-no-existencia-cero funcion argumentos dato estado)
         ]
-
     (and tipos-validos sin-ceros)
   )
 )
 
 ; Definicion de funcion mod
-(defmethod funcion? 'mod [funcion] true)
+(defmethod funcion? 'mod [funcion]
+  true
+)
 
 (defmethod ejecutar-funcion 'mod [funcion-con-argumentos dato estado]
   (let [
@@ -88,7 +148,9 @@
 )
 
 ; Definicion de funcion <
-(defmethod funcion? '< [funcion] true)
+(defmethod funcion? '< [funcion]
+  true
+)
 
 (defmethod ejecutar-funcion '< [funcion-con-argumentos dato estado]
   (let [
@@ -104,7 +166,9 @@
 )
 
 ; Definicion de funcion >
-(defmethod funcion? '> [funcion] true)
+(defmethod funcion? '> [funcion]
+  true
+)
 
 (defmethod ejecutar-funcion '> [funcion-con-argumentos dato estado]
   (let [
@@ -120,7 +184,9 @@
 )
 
 ; Definicion de funcion <=
-(defmethod funcion? '<= [funcion] true)
+(defmethod funcion? '<= [funcion]
+  true
+)
 
 (defmethod ejecutar-funcion '<= [funcion-con-argumentos dato estado]
   (let [
@@ -136,7 +202,9 @@
 )
 
 ; Definicion de funcion >=
-(defmethod funcion? '>= [funcion] true)
+(defmethod funcion? '>= [funcion]
+  true
+)
 
 (defmethod ejecutar-funcion '>= [funcion-con-argumentos dato estado]
   (let [

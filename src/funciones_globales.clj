@@ -1,14 +1,16 @@
 (ns funciones_globales
   (require  [definiciones :refer :all])
   (require  [procesamiento :refer :all]))
-
+  
 ; Para cada una de las funciones que se definen es necesario implementar los sig multimetodos:
 ; + funcion?
 ; + ejecutar-funcion
 ; + precondiciones-validas?
 
 ; Definicion de funcion =
-(defmethod funcion? '= [funcion] true)
+(defmethod funcion? '= [funcion]
+  true
+)
 
 (defmethod ejecutar-funcion '= [funcion-con-argumentos dato estado]
   (let [
@@ -23,10 +25,14 @@
   (validar-tipos funcion argumentos dato estado)
 )
 
-(defmethod ejecutar-funcion :default [funcion-con-argumentos dato estado] false)
+(defmethod ejecutar-funcion :default [funcion-con-argumentos dato estado]
+  false
+)
 
 ; Definicion de funcion =
-(defmethod funcion? '!= [funcion] true)
+(defmethod funcion? '!= [funcion]
+  true
+)
 
 (defmethod ejecutar-funcion '!= [funcion-con-argumentos dato estado]
   (let [
@@ -41,8 +47,14 @@
   (validar-tipos funcion argumentos dato estado)
 )
 
-(defmethod ejecutar-funcion :default [funcion-con-argumentos dato estado] false)
+(defmethod ejecutar-funcion :default [funcion-con-argumentos dato estado]
+  funcion-con-argumentos
+)
 
-(defmethod funcion? :default [funcion] false)
+(defmethod funcion? :default [funcion]
+  false
+)
 
-(defmethod precondiciones-validas? :default [funcion argumentos dato estado] false)
+(defmethod precondiciones-validas? :default [funcion argumentos dato estado]  
+  false
+)
