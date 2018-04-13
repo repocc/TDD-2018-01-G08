@@ -1,6 +1,7 @@
 (ns procesamiento
   (require  [definiciones :refer :all])
   (require  [funciones :refer :all])
+  ;(require  [funciones_globales :refer :all]) ;COMENTADO POR IVÁN PARA HACER DEBUG.
   (require  [tipos :refer :all]))
 
 (defn obtener-argumentos-no-validos [funcion argumentos dato estado]

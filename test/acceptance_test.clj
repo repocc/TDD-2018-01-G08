@@ -47,7 +47,6 @@
       st0 (initialize-processor rules)
       st1 (process-data-dropping-signals st0 {"spam" true})
       st2 (process-data-dropping-signals st1 {"spam" true})]
-    ;(println st2)
     (is (= 2 (query-counter st2 "email-count" []))))))
 
 (deftest conditional-counter-test
@@ -58,7 +57,6 @@
           st1 (process-data-dropping-signals st0 {"spam" true})
           st2 (process-data-dropping-signals st1 {"spam" true})
           st3 (process-data-dropping-signals st2 {"spam" true})]
-        ;(println st3)
         (is (= 3 (query-counter st3 "spam-count" [])))))
     (testing "when ignored field varies"
       (let [
@@ -66,7 +64,6 @@
           st1 (process-data-dropping-signals st0 {"spam" true, "noise" 1})
           st2 (process-data-dropping-signals st1 {"spam" true, "noise" 2})
           st3 (process-data-dropping-signals st2 {"spam" true, "noise" 3})]
-        ;(println st3)
         (is (= 3 (query-counter st3 "spam-count" [])))))
     (testing "when considered field varies"
       (let [
@@ -74,10 +71,8 @@
           st1 (process-data-dropping-signals st0 {"spam" true})
           st2 (process-data-dropping-signals st1 {"spam" false})
           st3 (process-data-dropping-signals st2 {"spam" true})]
-        ;(println st3)
         (is (= 2 (query-counter st3 "spam-count" []))))))) ;Considered field varies but it is not a parameter of the counter, and the querying function is called with no parameters, so there's no counting of "non-spam emails" and only one value to return.
 
-;TODO: (contingency-table-counter-test) is failing all 4 asserts.
 (deftest contingency-table-counter-test
   (let [
       st0       (initialize-processor rules)
@@ -91,62 +86,49 @@
       st8       (process-data-dropping-signals st7 {"spam" false, "important" false})
       st9       (process-data-dropping-signals st8 {"spam" false, "important" false})
       end-state (process-data-dropping-signals st9 {"spam" false, "important" false})]
-   (is (= 1 (query-counter end-state "spam-important-table" [true true]))) ;TODO: fallaba antes de refactor.
-   (is (= 2 (query-counter end-state "spam-important-table" [true false]))) ;TODO: fallaba antes de refactor.
-   (is (= 3 (query-counter end-state "spam-important-table" [false true]))) ;TODO: fallaba antes de refactor.
-   (is (= 4 (query-counter end-state "spam-important-table" [false false]))) ;TODO: fallaba antes de refactor.
+   (is (= 1 (query-counter end-state "spam-important-table" [true true])))
+   (is (= 2 (query-counter end-state "spam-important-table" [true false])))
+   (is (= 3 (query-counter end-state "spam-important-table" [false true])))
+   (is (= 4 (query-counter end-state "spam-important-table" [false false])))
 ))
 
-;TODO: (signal-skip-on-error-test) is failing.
+
 (deftest signal-skip-on-error-test
   (let [
       st0       (initialize-processor rules)
       [st1 sg1] (process-data st0 {})]
-    (is (= '() sg1)) ;TODO: fallaba antes de refactor.
+    (is (= '() sg1))
 ))
-(comment
-;TODO: (signal-launch-test) is failing and erroring.
+
 (deftest signal-launch-test
   (let [
       st0       (initialize-processor rules)
       [st1 sg1] (process-data st0 {"spam" true})
       [st2 sg2] (process-data st1 {"spam" false})
       [st3 sg3] (process-data st2 {})]
-    (is (= 0 (count sg1))) ;TODO: fallaba antes de refactor.
+    (is (= 0 (count sg1)))
     (is (= 1 (count sg2)))
-    (is (= 1 (get (first sg2) "spam-fraction"))) ;TODO: fallaba antes de refactor.
+    (is (= 1 (get (first sg2) "spam-fraction")))
     (is (= 1 (count sg3)))
     (is (<
-      0.49 (get (first sg3) "spam-fraction")
-      0.51)) ;TODO: erroreaba antes de refactor.
-))
-;(comment
-;TODO: (past-value-test) is failing all 5 asserts.
+      0.49
+      (get (first sg3) "spam-fraction")
+      0.51))))
+
 (deftest past-value-test
   (let [
-      st0
-        (initialize-processor '(
-          (define-signal
-            {"repeated"
-            (current "value")}
-            (=
-              (current "value")
-              (past "value")))))
-            [st1 sg1] (process-data st0 {"value" 1})
-      [st2 sg2] (process-data st1 {"value" 2})
-      [st3 sg3] (process-data st2 {"value" 1})
-      [st4 sg4] (process-data st3 {"value" 1})
-      [st5 sg5] (process-data st4 {"value" 2})]
-    (is (= 0 (count sg1))) ;TODO: fallaba antes de refactor.
-    (is (= 0 (count sg2))) ;TODO: fallaba antes de refactor.
-    (is (=
-      '({"repeated" 1})
-      sg3)) ;TODO: fallaba antes de refactor.
-    (is (=
-      '({"repeated" 1})
-      sg4)) ;TODO: fallaba antes de refactor.
-    (is (=
-      '({"repeated" 2})
-      sg5)) ;TODO: fallaba antes de refactor.
+    st0 (initialize-processor
+      '((define-signal
+      {"repeated" (current "value")}
+      (= (current "value") (past "value")))))
+    [st1 sg1] (process-data st0 {"value" 1})
+    [st2 sg2] (process-data st1 {"value" 2})
+    [st3 sg3] (process-data st2 {"value" 1})
+    [st4 sg4] (process-data st3 {"value" 1})
+    [st5 sg5] (process-data st4 {"value" 2})]
+    (is (= 0 (count sg1)))
+    (is (= 0 (count sg2)))
+    (is (= '({"repeated" 1}) sg3))
+    (is (= '({"repeated" 1}) sg4))
+    (is (= '({"repeated" 2}) sg5))
 ))
-)

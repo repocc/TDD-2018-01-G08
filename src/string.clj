@@ -110,7 +110,7 @@
 
 (defmethod ejecutar-funcion 'counter-value [funcion-con-argumentos dato estado]
   (let [
-        argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
+        argumentos (obtener-argumentos funcion-con-argumentos)
         ;resultado  (counter-value argumentos dato estado)
         resultado  (consultarContador estado (first argumentos) (second argumentos))
        ]

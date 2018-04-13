@@ -23,7 +23,7 @@
   (validar-tipos funcion argumentos dato estado)
 )
 
-(defmethod ejecutar-funcion :default [funcion-con-argumentos dato estado] false)
+(defmethod ejecutar-funcion :default [funcion-con-argumentos dato estado] funcion-con-argumentos)
 
 ; Definicion de funcion =
 (defmethod funcion? '!= [funcion] true)
