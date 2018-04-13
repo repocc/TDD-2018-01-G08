@@ -1,6 +1,7 @@
 (ns string
   (require  [definiciones :refer :all])
   (require  [procesamiento :refer :all])
+  (require  [aux :refer :all])
   (require  [clojure.string :as str])
   (require  [estado :refer :all]))
 

@@ -1,6 +1,6 @@
 (ns bool
   (require  [definiciones :refer :all])
-  (require  [procesamiento :refer :all]))
+  (require  [aux :refer :all]))
 
 ; Definicion de funcion or
 (defmethod funcion? 'or [funcion]
