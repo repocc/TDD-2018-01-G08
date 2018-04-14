@@ -101,7 +101,12 @@
 )
 
 (defmethod precondiciones-validas? 'current [funcion argumentos dato estado]
-  (validar-tipos funcion argumentos dato estado)
+ (let [
+         existe-campo  (contains? dato (first argumentos))
+         cumple-tipos  (validar-tipos funcion argumentos dato estado)
+       ]
+     (and existe-campo cumple-tipos)
+ )
 )
 
 ; Definicion de funcion counter-value
@@ -112,7 +117,6 @@
 (defmethod ejecutar-funcion 'counter-value [funcion-con-argumentos dato estado]
   (let [
         argumentos (obtener-argumentos funcion-con-argumentos)
-        ;resultado  (counter-value argumentos dato estado)
         resultado  (consultarContador estado (first argumentos) (second argumentos))
        ]
     resultado

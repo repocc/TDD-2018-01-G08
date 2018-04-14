@@ -166,3 +166,26 @@
         validez-expresion (expresion-valida? '(/ 3 (* 8 0)) {} {})]
     (is (false? validez-expresion)))))
     
+(deftest validez-expresion-current-no-existe-campo
+  (testing "La expresion current debe ser invalida por inexistencia del campo"
+    (let [
+        validez-expresion (expresion-valida? '(current "spam") {"important" false} {})]
+    (is (false? validez-expresion)))))
+
+(deftest validez-expresion-current-no-existe-campo-dato-extenso
+  (testing "La expresion current debe ser invalida por inexistencia del campo"
+    (let [
+        validez-expresion (expresion-valida? '(current "spam") {"draft" true, "important" false} {})]
+    (is (false? validez-expresion)))))
+
+(deftest validez-expresion-current-campo-false
+  (testing "La expresion current debe ser valida"
+    (let [
+        validez-expresion (expresion-valida? '(current "spam") {"spam" false} {})]
+    (is (true? validez-expresion)))))
+
+(deftest validez-expresion-current-campo-no-bool
+  (testing "La expresion current debe ser valida"
+    (let [
+        validez-expresion (expresion-valida? '(current "spam") {"spam" "pepito"} {})]
+    (is (true? validez-expresion)))))
