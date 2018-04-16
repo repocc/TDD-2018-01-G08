@@ -35,7 +35,6 @@
   [state new-data]
   (first (process-data state new-data)))
 
-
 ;Counter "spam" must have value = 0 right after processor initialization.
 (deftest initial-state-test
   (testing "Query counter from initial state"
@@ -89,16 +88,13 @@
    (is (= 1 (query-counter end-state "spam-important-table" [true true])))
    (is (= 2 (query-counter end-state "spam-important-table" [true false])))
    (is (= 3 (query-counter end-state "spam-important-table" [false true])))
-   (is (= 4 (query-counter end-state "spam-important-table" [false false])))
-))
-
+   (is (= 4 (query-counter end-state "spam-important-table" [false false])))))
 
 (deftest signal-skip-on-error-test
   (let [
       st0       (initialize-processor rules)
       [st1 sg1] (process-data st0 {})]
-    (is (= '() sg1))
-))
+    (is (= '() sg1))))
 
 (deftest signal-launch-test
   (let [
@@ -117,10 +113,12 @@
 
 (deftest past-value-test
   (let [
-    st0 (initialize-processor
-      '((define-signal
-      {"repeated" (current "value")}
-      (= (current "value") (past "value")))))
+    st0
+      (initialize-processor
+        '((define-signal
+            {"repeated"
+              (current "value")}
+            (= (current "value") (past "value")))))
     [st1 sg1] (process-data st0 {"value" 1})
     [st2 sg2] (process-data st1 {"value" 2})
     [st3 sg3] (process-data st2 {"value" 1})
@@ -130,5 +128,4 @@
     (is (= 0 (count sg2)))
     (is (= '({"repeated" 1}) sg3))
     (is (= '({"repeated" 1}) sg4))
-    (is (= '({"repeated" 2}) sg5))
-))
+    (is (= '({"repeated" 2}) sg5))))

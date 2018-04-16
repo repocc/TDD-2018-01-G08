@@ -3,7 +3,7 @@
   (require  [procesamiento :refer :all])
   (require  [aux :refer :all])
   (require  [clojure.string :as str])
-  (require  [estado :refer :all]))
+  (require  [estado :as est]))
 
 ; Definicion de funcion concat
 (defmethod funcion? 'concat [funcion]
@@ -87,7 +87,7 @@
           campo       (first argumento)
           valor_campo (get dato campo)
         ]
-    (= valor_campo true)
+  valor_campo
   )
 )
 
@@ -117,7 +117,7 @@
 (defmethod ejecutar-funcion 'counter-value [funcion-con-argumentos dato estado]
   (let [
         argumentos (obtener-argumentos funcion-con-argumentos)
-        resultado  (consultarContador estado (first argumentos) (second argumentos))
+        resultado  (est/consultarContador estado (first argumentos) (second argumentos))
        ]
     resultado
  )
@@ -133,16 +133,22 @@
   true
 )
 
-(defmethod ejecutar-funcion 'past [funcion-con-argumentos dato estado]
+(defmethod ejecutar-funcion 'past [funcion-con-argumentos dato estadoConUnDatoPasado]
   (let [
-          argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
-          ;resultado  (past argumentos dato estado)
-          resultado  true
+          argumentos   (obtener-argumentos-ejecutables funcion-con-argumentos dato estadoConUnDatoPasado)
+          unDatoPasado (est/obtenerElDatoPasado estadoConUnDatoPasado)
+          resultado    (get unDatoPasado (first argumentos))
         ]
     resultado
   )
 )
 
-(defmethod precondiciones-validas? 'past [funcion argumentos dato estado]
-  (validar-tipos funcion argumentos dato estado)
+(defmethod precondiciones-validas? 'past [funcion argumentos dato estadoConUnDatoPasado]
+  (let [
+    validar-tipos           (validar-tipos funcion argumentos dato estadoConUnDatoPasado)
+    unDatoPasado            (est/obtenerElDatoPasado estadoConUnDatoPasado)
+    existeCampoEnDatoPasado (est/datoPasadoContieneCampo (first argumentos) unDatoPasado)]
+    (and
+      (= validar-tipos true)
+      existeCampoEnDatoPasado))
 )

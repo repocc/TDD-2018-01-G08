@@ -1,7 +1,7 @@
 ; funciones requeridas en este paquete:
-;; (defmethod procesarUnaRegla 'define-counter-step [estado unContadorPasoEnDSL])
+;; (defmethod procesarUnaRegla 'define-step-counter [estado unContadorPasoEnDSL])
 ; DSL:
-; (define-counter-step
+; (define-step-counter
 ;   nombre     <string>
 ;    paso       <number>
 ;   parámetros <vector de un tipo básico o listas ejecutables>
@@ -31,4 +31,4 @@
     (if (contains? (:define-counter (:reglas estado)) (nth unContadorPasoEnDSL 1)) ;Si contiene este contadorPaso en particular en el mapa de contadores.
       (estado) ;Ya hay un contadorPaso idéntico.
       (agregarContadorPaso estado unContadorPasoEnDSL))
-    (agregarContadorPaso (agregarMapaDeReglasEspecificas estado 'define-counter-step) unContadorPasoEnDSL)))
+    (agregarContadorPaso (agregarMapaDeReglasEspecificas estado 'define-counter) unContadorPasoEnDSL)))

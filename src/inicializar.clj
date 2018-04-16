@@ -17,7 +17,7 @@
   ;Formato de lista de reglas: ((<regla en DSL>)*)
   [listaDeReglasEnDSL]
   ;TODO(Iván): comprobar que sea una lista.
-  (let [estado (estado.Estado. {})] ;Empiezo con un estado vacío.
+  (let [estado (estado.Estado. {} '())] ;Empiezo con un estado vacío.
     (reduce
       (fn [estado unaReglaEnDSL] (procesarUnaRegla estado unaReglaEnDSL)) ;TODO(Iván): antes del multimétodo, ver que tenga el formato DSL apropiado.
       estado

@@ -3,7 +3,7 @@
     [procesamiento :refer :all]
     [definiciones :refer :all] :reload-all))
 
-(defrecord Estado [reglas]) ;Estado será un record con un campo "reglas", que será un mapa donde se almacenan los contadores y/o señales.
+(defrecord Estado [reglas datosPasados]) ;Estado será un record con un campo "reglas" (que será un mapa donde se almacenan los contadores y/o señales), y un campo "datosPasados" (que será donde se almacenen los datos ya procesados).
 
 (defn agregarMapaDeReglasEspecificas
   "Agrega al estado el mapa que tendrá todas las reglas de un determinado tipo (contadores, señales, etc.). Devuelve un nuevo esta con dicho mapa agregado (la clave del mapa es la sentencia de DSL usada para definir la señal)."
@@ -29,3 +29,12 @@
 (defmulti procesarUnaRegla
   "Agrega una regla conocida al estado a partir de la lista que la expresa en DSL, o deja el estado tal y como está si está vacía la lista que expresa en DSL la regla. Devuelve un nuevo estado con la regla agregada."
   (fn [estado identificadorDeRegla] (first identificadorDeRegla)))
+
+(defn obtenerElDatoPasado
+  [estadoConUnDatoPasado]
+  (first (:datosPasados estadoConUnDatoPasado))
+)
+
+(defn datoPasadoContieneCampo
+  [campo unDatoPasado]
+  (contains? unDatoPasado campo))

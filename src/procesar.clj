@@ -16,14 +16,12 @@
     (fn
       [acumulador]
       (if (nil? acumulador) ;Cuando el acumulador es cero, es porque nunca se había dado esta combinación de parámetros, por lo cual la clave no existe en el mapa (porque nunca fue incrementada antes y no se cargan en cero al principio, se espera a que haya que incrementarlas para meter la combinación de parámetros al mapa) y retorna "nil".
-        1
         (if (contains? (get-in estado [:reglas 'define-counter contadorNombre]) :paso)
-          (do ;(println "NO LO ENCONTRO" contadorNombre)
-          (println "PASO ES" (get-in estado [:reglas 'define-counter contadorNombre :paso]))
-          (+ (ejecutar-funcion (get-in estado [:reglas 'define-counter contadorNombre :paso]) dato estado) acumulador)) ;TODO CHEQUEAR QUE SEA FUNCION.
-          (do ;(println "SI LO ENCONTRO" contadorNombre)
-          (inc acumulador))
-          )))))
+          (ejecutar-funcion (get-in estado [:reglas 'define-counter contadorNombre :paso]) dato estado) ;TODO CHEQUEAR QUE SEA FUNCION.
+          1)
+        (if (contains? (get-in estado [:reglas 'define-counter contadorNombre]) :paso)
+          (+ (ejecutar-funcion (get-in estado [:reglas 'define-counter contadorNombre :paso]) dato estado) acumulador) ;TODO CHEQUEAR QUE SEA FUNCION.
+          (inc acumulador))))))
 
 (defn obtenerParametrosEvaluados
   "TODO(Iván): Agregar descripción."
@@ -34,7 +32,7 @@
 (defn procesarParametrosDeUnContador
   "TODO(Iván): Agregar descripción."
   [estado dato contadorNombre contadorResto] ;"contadorResto" es un mapa de tres elementos: :parametros, :condicion, :acumuladores.
-  (if (every? true? (map (fn [parametro] (expresion-valida? parametro {} estado)) (contadorResto :parametros)))
+  (if (every? true? (map (fn [parametro] (expresion-valida? parametro dato estado)) (contadorResto :parametros)))
     (let [
       parametrosEvaluados (obtenerParametrosEvaluados estado dato (contadorResto :parametros))]
       (incrementarAcumuladorCorrespondiente estado dato contadorNombre parametrosEvaluados)
@@ -49,8 +47,8 @@
     dato   (last estadoYDato)]
   (if
     (and
-      (expresion-valida? (contadorResto :condicion) dato estado)
-      (ejecutar-funcion (contadorResto :condicion) dato estado)) ;"and" cortocircuita, así que no hay error acá. Si no es válida, no la evalúa.
+      (expresion-valida-contemplando-past? (contadorResto :condicion) dato estado)
+      (ejecutar-funcion-contemplando-past (contadorResto :condicion) dato estado)) ;"and" cortocircuita, así que no hay error acá. Si no es válida, no la evalúa.
     (list (procesarParametrosDeUnContador estado dato contadorNombre contadorResto) dato) ;Evaluar parámetros e incrementar acumulador correspondiente.
     (list estado dato))))
 
@@ -76,8 +74,8 @@
     dato   (last estadoYDato)]
   (if
     (and
-      (expresion-valida? (senyalResto :condicion) dato estado)
-      (ejecutar-funcion (senyalResto :condicion) dato estado)) ;"and" cortocircuita, así que no hay error acá. Si no es válida, no la evalúa.
+      (expresion-valida-contemplando-past? (senyalResto :condicion) dato estado)
+      (ejecutar-funcion-contemplando-past (senyalResto :condicion) dato estado)) ;"and" cortocircuita, así que no hay error acá. Si no es válida, no la evalúa.
     (list (procesarFormulaDeUnaSenyal estado dato senyalNombre (senyalResto :formula)) dato)
     (list estado dato))))
 
@@ -90,12 +88,19 @@
     mapaDeContadores (get (:reglas estado) 'define-counter)] ;El mapa de "nombre del contador" a "resto del contador".
     (let [
       nuevoEstadoConResultadosYDato (reduce-kv procesarUnaSenyal (list estado dato) mapaDeSenyales)
-      nuevoEstadoYDato              (reduce-kv procesarUnContador (list estado dato) mapaDeContadores)] ;"estado" se va transformando en el nuevo estado actualizado con el reduce. Se pone el estado en una lista con el dato para poder aprovechar la recursividad de la funcion "reduce-kv"."
-      ;La salida espera da es un vector con el estado en la primera posición, y los resultado en la segunda.
-      ; (println "SALIDA PROCESAR")
-      ; (println (dissoc (first nuevoEstadoYDato) :senyales))
-      ; (println (get (first nuevoEstadoYDato) :senyales))
-      [(first nuevoEstadoYDato)
-      (if (nil? (get (first nuevoEstadoConResultadosYDato) :senyales))
-        '()
-        (get (first nuevoEstadoConResultadosYDato) :senyales))])))
+      nuevoEstadoYDato              (reduce-kv procesarUnContador (list estado dato) mapaDeContadores) ;"estado" se va transformando en el nuevo estado actualizado con el reduce. Se pone el estado en una lista con el dato para poder aprovechar la recursividad de la funcion "reduce-kv".
+      ;La salida esperada es un vector con el estado en la primera posición, y los resultado en la segunda.
+      nuevoEstado  ;TODO(Iván): METER EL DATO EN EL ESTADO PARA EL PAST.
+        (update-in
+          (first nuevoEstadoYDato)
+          [:datosPasados]
+          (fn
+            [datosPasados dato]
+            (cons dato datosPasados))
+          dato)
+      resultado
+        (if
+          (nil? (get (first nuevoEstadoConResultadosYDato) :senyales))
+          '()
+          (get (first nuevoEstadoConResultadosYDato) :senyales))]
+      [nuevoEstado resultado])))

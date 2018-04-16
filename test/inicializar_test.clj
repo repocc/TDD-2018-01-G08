@@ -7,12 +7,12 @@
   (:import [estado Estado]))
 
 (deftest test-procesarUnaRegla-de-desconocido-con-estado-vacio-no-crea-ningun-mapa
-  (let [estado (Estado. {})]
+  (let [estado (Estado. {} '())]
     (is (empty? (:reglas (procesarUnaRegla estado reglasEjemplo/reglaSemaforoLlamadoTotalSinParametrosYCondicionTrue))))))
 
 (deftest test-agregarMapaDeReglasEspecificas-en-estado-vacio-agrega-un-solo-mapa
   (let [
-    estado (Estado. {})
+    estado (Estado. {} '())
     clave 'clave]
     (is (=
       1

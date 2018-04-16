@@ -1,4 +1,3 @@
-(comment
 (ns extension-test
   (:require [clojure.test :refer :all]
             [data-processor :refer :all]))
@@ -14,7 +13,6 @@
                                         true)))
           st1 (process-data-dropping-signals st0 {})
           st2 (process-data-dropping-signals st1 {})]
-            (println st0)
       (is (= (query-counter st1 "old" [])
              (query-counter st1 "new" [])))
       (is (= (query-counter st2 "old" [])
@@ -30,4 +28,3 @@
              (query-counter st1 "stepper" [])))
       (is (= 7.5
              (query-counter st2 "stepper" []))))))
-)
