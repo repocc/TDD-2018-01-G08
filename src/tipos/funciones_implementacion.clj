@@ -1,11 +1,11 @@
-(ns funciones
+(ns tipos.funciones-implementacion
   (require  [definiciones :refer :all])
   (require  [tipos.number-definicion-funciones :refer :all])
   (require  [tipos.string-definicion-funciones :refer :all])
   (require  [tipos.bool-definicion-funciones :refer :all]))
 
 ; Multimetodo implementa-funcion?
-; Pasa la pregunta a cada uno de los tipos.tipos, ya que ellos mismos saben las funciones que implementan
+; Pasa la pregunta a cada uno de los tipos, ya que ellos mismos saben las funciones que implementan
 
 (defmethod implementa-funcion? java.lang.Boolean [funcion argumento dato estado]
   (boolean-implementa-funcion? funcion)

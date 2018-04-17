@@ -1,13 +1,11 @@
 (ns procesamiento
   (require  [definiciones :refer :all])
-  (require  [funciones :refer :all])
-  (require  [funciones_globales :refer :all])
-  (require  [aux :refer :all])
+  (require  [tipos.funciones-implementacion :refer :all])
+  (require  [funciones-globales :refer :all])
   (require  [tipos.tipos :refer :all])
   (require  [estado_auxiliar :as est_aux]))
 
 (defn obtener-ceros [argumentos dato estado]
-  ;(filter (fn [argumento] (= argumento 0)) argumentos)
   (filter (fn [argumento]
 
               (if(seq? argumento)
@@ -26,7 +24,6 @@
     existen-ceros
   )
 )
-
 
 ; Para que una expresion sea valida, deben ser validas todas sus sub-expresiones.
 ; Se deben cumplir cada una de las precondiciones.

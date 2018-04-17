@@ -1,6 +1,6 @@
 (ns tipos.number-funciones
   (require  [definiciones :refer :all])
-  (require  [aux :refer :all])
+  (require  [funciones-globales :refer :all])
   (require  [procesamiento :refer :all]))
 
 ; Definicion de funcion +

@@ -1,7 +1,7 @@
 (ns tipos.string-funciones
   (require  [definiciones :refer :all])
   (require  [procesamiento :refer :all])
-  (require  [aux :refer :all])
+  (require  [funciones-globales :refer :all])
   (require  [clojure.string :as str])
   (require  [estado :as est]))
 
