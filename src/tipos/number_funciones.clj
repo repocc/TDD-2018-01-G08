@@ -6,148 +6,148 @@
 ; Definicion de funcion +
 (defmethod funcion? '+ [funcion] true)
 
-(defmethod ejecutar-funcion '+ [funcion-con-argumentos dato estado]
+(defmethod ejecutarFuncion '+ [funcionConArgumentos dato estado]
   (let [
-          argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
+          argumentos (obtenerArgumentosEjecutables funcionConArgumentos dato estado)
           resultado  (apply + argumentos)
         ]
     resultado
   )
 )
 
-(defmethod precondiciones-validas? '+ [funcion argumentos dato estado]
-  (validar-tipos funcion argumentos dato estado))
+(defmethod precondicionesValidas? '+ [funcion argumentos dato estado]
+  (validarTipos funcion argumentos dato estado))
 
 ; Definicion de funcion -
 (defmethod funcion? '- [funcion] true)
 
-(defmethod ejecutar-funcion '- [funcion-con-argumentos dato estado]
+(defmethod ejecutarFuncion '- [funcionConArgumentos dato estado]
   (let [
-          argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
+          argumentos (obtenerArgumentosEjecutables funcionConArgumentos dato estado)
           resultado  (apply - argumentos)
         ]
     resultado
   )
 )
 
-(defmethod precondiciones-validas? '- [funcion argumentos dato estado]
-  (validar-tipos funcion argumentos dato estado)
+(defmethod precondicionesValidas? '- [funcion argumentos dato estado]
+  (validarTipos funcion argumentos dato estado)
 )
 
 ; Definicion de funcion *
 (defmethod funcion? '* [funcion] true)
 
-(defmethod ejecutar-funcion '* [funcion-con-argumentos dato estado]
+(defmethod ejecutarFuncion '* [funcionConArgumentos dato estado]
   (let [
-          argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
+          argumentos (obtenerArgumentosEjecutables funcionConArgumentos dato estado)
           resultado  (apply * argumentos)
         ]
     resultado
   )
 )
 
-(defmethod precondiciones-validas? '* [funcion argumentos dato estado]
-  (validar-tipos funcion argumentos dato estado)
+(defmethod precondicionesValidas? '* [funcion argumentos dato estado]
+  (validarTipos funcion argumentos dato estado)
 )
 
 ; Definicion de funcion /
 (defmethod funcion? '/ [funcion] true)
 
-(defmethod ejecutar-funcion '/ [funcion-con-argumentos dato estado]
+(defmethod ejecutarFuncion '/ [funcionConArgumentos dato estado]
   (let [
-          argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
+          argumentos (obtenerArgumentosEjecutables funcionConArgumentos dato estado)
           resultado  (apply / argumentos)
         ]
     resultado
   )
 )
 
-(defmethod precondiciones-validas? '/ [funcion argumentos dato estado]
+(defmethod precondicionesValidas? '/ [funcion argumentos dato estado]
   (let [
-          tipos-validos (validar-tipos funcion argumentos dato estado)
-          sin-ceros     (validar-no-existencia-cero funcion argumentos dato estado)
+          tiposValidos (validarTipos funcion argumentos dato estado)
+          sinCeros     (validarNoExistenciaCero funcion argumentos dato estado)
         ]
 
-    (and tipos-validos sin-ceros)
+    (and tiposValidos sinCeros)
   )
 )
 
 ; Definicion de funcion mod
 (defmethod funcion? 'mod [funcion] true)
 
-(defmethod ejecutar-funcion 'mod [funcion-con-argumentos dato estado]
+(defmethod ejecutarFuncion 'mod [funcionConArgumentos dato estado]
   (let [
-          argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
+          argumentos (obtenerArgumentosEjecutables funcionConArgumentos dato estado)
           resultado  (apply mod argumentos)
         ]
     resultado
   )
 )
 
-(defmethod precondiciones-validas? 'mod [funcion argumentos dato estado]
-  (validar-tipos funcion argumentos dato estado)
+(defmethod precondicionesValidas? 'mod [funcion argumentos dato estado]
+  (validarTipos funcion argumentos dato estado)
 )
 
 ; Definicion de funcion <
 (defmethod funcion? '< [funcion] true)
 
-(defmethod ejecutar-funcion '< [funcion-con-argumentos dato estado]
+(defmethod ejecutarFuncion '< [funcionConArgumentos dato estado]
   (let [
-          argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
+          argumentos (obtenerArgumentosEjecutables funcionConArgumentos dato estado)
           resultado  (apply < argumentos)
         ]
     resultado
   )
 )
 
-(defmethod precondiciones-validas? '< [funcion argumentos dato estado]
-  (validar-tipos funcion argumentos dato estado)
+(defmethod precondicionesValidas? '< [funcion argumentos dato estado]
+  (validarTipos funcion argumentos dato estado)
 )
 
 ; Definicion de funcion >
 (defmethod funcion? '> [funcion] true)
 
-(defmethod ejecutar-funcion '> [funcion-con-argumentos dato estado]
+(defmethod ejecutarFuncion '> [funcionConArgumentos dato estado]
   (let [
-          argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
+          argumentos (obtenerArgumentosEjecutables funcionConArgumentos dato estado)
           resultado  (apply > argumentos)
         ]
     resultado
   )
 )
 
-(defmethod precondiciones-validas? '> [funcion argumentos dato estado]
-  (validar-tipos funcion argumentos dato estado)
+(defmethod precondicionesValidas? '> [funcion argumentos dato estado]
+  (validarTipos funcion argumentos dato estado)
 )
 
 ; Definicion de funcion <=
 (defmethod funcion? '<= [funcion] true)
 
-(defmethod ejecutar-funcion '<= [funcion-con-argumentos dato estado]
+(defmethod ejecutarFuncion '<= [funcionConArgumentos dato estado]
   (let [
-          argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
+          argumentos (obtenerArgumentosEjecutables funcionConArgumentos dato estado)
           resultado  (apply <= argumentos)
         ]
     resultado
   )
 )
 
-(defmethod precondiciones-validas? '<= [funcion argumentos dato estado]
-  (validar-tipos funcion argumentos dato estado)
+(defmethod precondicionesValidas? '<= [funcion argumentos dato estado]
+  (validarTipos funcion argumentos dato estado)
 )
 
 ; Definicion de funcion >=
 (defmethod funcion? '>= [funcion] true)
 
-(defmethod ejecutar-funcion '>= [funcion-con-argumentos dato estado]
+(defmethod ejecutarFuncion '>= [funcionConArgumentos dato estado]
   (let [
-          argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
+          argumentos (obtenerArgumentosEjecutables funcionConArgumentos dato estado)
           resultado  (apply >= argumentos)
         ]
     resultado
   )
 )
 
-(defmethod precondiciones-validas? '>= [funcion argumentos dato estado]
-  (validar-tipos funcion argumentos dato estado)
+(defmethod precondicionesValidas? '>= [funcion argumentos dato estado]
+  (validarTipos funcion argumentos dato estado)
 )

@@ -1,23 +1,23 @@
 (ns tipos.string-definicion-funciones)
 
-(defmulti string-implementa-funcion? (fn [funcion] funcion))
+(defmulti stringImplementaFuncion? (fn [funcion] funcion))
 
-(defmethod string-implementa-funcion? '= [funcion] true)
+(defmethod stringImplementaFuncion? '= [funcion] true)
 
-(defmethod string-implementa-funcion? '!= [funcion] true)
+(defmethod stringImplementaFuncion? '!= [funcion] true)
 
-(defmethod string-implementa-funcion? 'concat [funcion] true)
+(defmethod stringImplementaFuncion? 'concat [funcion] true)
 
-(defmethod string-implementa-funcion? 'includes? [funcion] true)
+(defmethod stringImplementaFuncion? 'includes? [funcion] true)
 
-(defmethod string-implementa-funcion? 'starts-with? [funcion] true)
+(defmethod stringImplementaFuncion? 'starts-with? [funcion] true)
 
-(defmethod string-implementa-funcion? 'ends-with? [funcion] true)
+(defmethod stringImplementaFuncion? 'ends-with? [funcion] true)
 
-(defmethod string-implementa-funcion? 'current [funcion] true)
+(defmethod stringImplementaFuncion? 'current [funcion] true)
 
-(defmethod string-implementa-funcion? 'past [funcion] true)
+(defmethod stringImplementaFuncion? 'past [funcion] true)
 
-(defmethod string-implementa-funcion? 'counter-value [funcion] true)
+(defmethod stringImplementaFuncion? 'counter-value [funcion] true)
 
-(defmethod string-implementa-funcion? :default [funcion] false)
+(defmethod stringImplementaFuncion? :default [funcion] false)

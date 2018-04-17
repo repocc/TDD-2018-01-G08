@@ -14,12 +14,12 @@
 (defn consultarContador
   "TODO(Iván): Agregar descripción."
   [estado contadorNombre contadorParametros]
-  (if (every? true? (map (fn [parametro] (expresion-valida? parametro {} estado)) contadorParametros))
+  (if (every? true? (map (fn [parametro] (expresionValida? parametro {} estado)) contadorParametros))
     (let [
       acumulador
         (get
           (get-in estado [:reglas 'define-counter contadorNombre :acumuladores]) ;Agarro el mapa de acumuladores que tiene por clave.
-          (map (fn [parametro] (ejecutar-funcion parametro {} estado)) contadorParametros) ;Me genero una lista con los valores de la evaluación de los parámetros del contador. Listas y vectores son intercambiables al usarlos como clave de un mapa.
+          (map (fn [parametro] (ejecutarFuncion parametro {} estado)) contadorParametros) ;Me genero una lista con los valores de la evaluación de los parámetros del contador. Listas y vectores son intercambiables al usarlos como clave de un mapa.
         )] ; Obtengo el valor del acumulador del contador para la combinación específica de parámetros.
       (if (nil? acumulador)
         0 ;Si el acumulador no existía (para esa combinación de parámetros no se contó ningun dato aún.

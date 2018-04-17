@@ -1,19 +1,19 @@
 (ns tipos.bool-definicion-funciones)
 
-(defmulti boolean-implementa-funcion? (fn [funcion] funcion))
+(defmulti booleanImplementaFuncion? (fn [funcion] funcion))
 
-(defmethod boolean-implementa-funcion? '= [funcion] true)
+(defmethod booleanImplementaFuncion? '= [funcion] true)
 
-(defmethod boolean-implementa-funcion? '!= [funcion] true)
+(defmethod booleanImplementaFuncion? '!= [funcion] true)
 
-(defmethod boolean-implementa-funcion? 'or [funcion] true)
+(defmethod booleanImplementaFuncion? 'or [funcion] true)
 
-(defmethod boolean-implementa-funcion? 'and [funcion] true)
+(defmethod booleanImplementaFuncion? 'and [funcion] true)
 
-(defmethod boolean-implementa-funcion? 'not [funcion] true)
+(defmethod booleanImplementaFuncion? 'not [funcion] true)
 
-(defmethod boolean-implementa-funcion? 'true [funcion] true)
+(defmethod booleanImplementaFuncion? 'true [funcion] true)
 
-(defmethod boolean-implementa-funcion? 'false [funcion] true)
+(defmethod booleanImplementaFuncion? 'false [funcion] true)
 
-(defmethod boolean-implementa-funcion? :default [funcion] false)
+(defmethod booleanImplementaFuncion? :default [funcion] false)

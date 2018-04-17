@@ -17,22 +17,22 @@
       [acumulador]
       (if (nil? acumulador) ;Cuando el acumulador es cero, es porque nunca se había dado esta combinación de parámetros, por lo cual la clave no existe en el mapa (porque nunca fue incrementada antes y no se cargan en cero al principio, se espera a que haya que incrementarlas para meter la combinación de parámetros al mapa) y retorna "nil".
         (if (contains? (get-in estado [:reglas 'define-counter contadorNombre]) :paso)
-          (ejecutar-funcion (get-in estado [:reglas 'define-counter contadorNombre :paso]) dato estado) ;TODO CHEQUEAR QUE SEA FUNCION.
+          (ejecutarFuncion (get-in estado [:reglas 'define-counter contadorNombre :paso]) dato estado) ;TODO CHEQUEAR QUE SEA FUNCION.
           1)
         (if (contains? (get-in estado [:reglas 'define-counter contadorNombre]) :paso)
-          (+ (ejecutar-funcion (get-in estado [:reglas 'define-counter contadorNombre :paso]) dato estado) acumulador) ;TODO CHEQUEAR QUE SEA FUNCION.
+          (+ (ejecutarFuncion (get-in estado [:reglas 'define-counter contadorNombre :paso]) dato estado) acumulador) ;TODO CHEQUEAR QUE SEA FUNCION.
           (inc acumulador))))))
 
 (defn obtenerParametrosEvaluados
   "TODO(Iván): Agregar descripción."
   [estado dato parametros]
-  (map (fn [parametro] (ejecutar-funcion parametro dato estado)) parametros) ;Me genero una lista con los valores de la evaluación de los parámetros del contador. Listas y vectores son intercambiables al usarlos como clave de un mapa.
+  (map (fn [parametro] (ejecutarFuncion parametro dato estado)) parametros) ;Me genero una lista con los valores de la evaluación de los parámetros del contador. Listas y vectores son intercambiables al usarlos como clave de un mapa.
 )
 
 (defn procesarParametrosDeUnContador
   "TODO(Iván): Agregar descripción."
   [estado dato contadorNombre contadorResto] ;"contadorResto" es un mapa de tres elementos: :parametros, :condicion, :acumuladores.
-  (if (every? true? (map (fn [parametro] (expresion-valida? parametro dato estado)) (contadorResto :parametros)))
+  (if (every? true? (map (fn [parametro] (expresionValida? parametro dato estado)) (contadorResto :parametros)))
     (let [
       parametrosEvaluados (obtenerParametrosEvaluados estado dato (contadorResto :parametros))]
       (incrementarAcumuladorCorrespondiente estado dato contadorNombre parametrosEvaluados)
@@ -48,16 +48,16 @@
   (if
     (and
       (expresion-valida-contemplando-past? (contadorResto :condicion) dato estado)
-      (ejecutar-funcion-contemplando-past (contadorResto :condicion) dato estado)) ;"and" cortocircuita, así que no hay error acá. Si no es válida, no la evalúa.
+      (ejecutarFuncion-contemplando-past (contadorResto :condicion) dato estado)) ;"and" cortocircuita, así que no hay error acá. Si no es válida, no la evalúa.
     (list (procesarParametrosDeUnContador estado dato contadorNombre contadorResto) dato) ;Evaluar parámetros e incrementar acumulador correspondiente.
     (list estado dato))))
 
 (defn procesarFormulaDeUnaSenyal
   "TODO(Iván): Agregar descripción."
   [estado dato senyalNombre senyalFormula]
-  (if (expresion-valida? senyalFormula dato estado)
+  (if (expresionValida? senyalFormula dato estado)
     (let [
-      formulaEvaluada (ejecutar-funcion senyalFormula dato estado)]
+      formulaEvaluada (ejecutarFuncion senyalFormula dato estado)]
       (update-in
         estado
         [:senyales]
@@ -75,7 +75,7 @@
   (if
     (and
       (expresion-valida-contemplando-past? (senyalResto :condicion) dato estado)
-      (ejecutar-funcion-contemplando-past (senyalResto :condicion) dato estado)) ;"and" cortocircuita, así que no hay error acá. Si no es válida, no la evalúa.
+      (ejecutarFuncion-contemplando-past (senyalResto :condicion) dato estado)) ;"and" cortocircuita, así que no hay error acá. Si no es válida, no la evalúa.
     (list (procesarFormulaDeUnaSenyal estado dato senyalNombre (senyalResto :formula)) dato)
     (list estado dato))))
 

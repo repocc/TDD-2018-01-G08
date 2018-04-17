@@ -2,98 +2,98 @@
   (require  [definiciones :refer :all])
   (require  [tipos.tipos :refer :all]))
 
-(defn obtener-argumentos-no-validos [funcion argumentos dato estado]
-  (filter (fn [argumento] (= (implementa-funcion? funcion argumento dato estado) false)) argumentos)
+(defn obtenerArgumentosNoValidos [funcion argumentos dato estado]
+  (filter (fn [argumento] (= (implementaFuncion? funcion argumento dato estado) false)) argumentos)
 )
 
 ; Encargada de validar que los tipos de los argumentos sean correctos de acuerdo a la funcion
-(defn validar-tipos [funcion argumentos dato estado]
+(defn validarTipos [funcion argumentos dato estado]
   (let [
-          argumentos-no-validos (obtener-argumentos-no-validos funcion argumentos dato estado)
-          existen-no-validos    (empty? argumentos-no-validos)
+          argumentosNoValidos (obtenerArgumentosNoValidos funcion argumentos dato estado)
+          existenNoValidos    (empty? argumentosNoValidos)
         ]
-    (if (= existen-no-validos true)
+    (if (= existenNoValidos true)
       true
       ERROR
     )
   )
 )
 
-(defn obtener-nombre-funcion [funcion-con-argumentos]
-  (first funcion-con-argumentos)
+(defn obtenerNombreFuncion [funcionConArgumentos]
+  (first funcionConArgumentos)
 )
 
-(defn obtener-argumentos [funcion-con-argumentos]
+(defn obtenerArgumentos [funcionConArgumentos]
   (let [
-          funcion (obtener-nombre-funcion funcion-con-argumentos)
+          funcion (obtenerNombreFuncion funcionConArgumentos)
         ]
-    (filter (fn [elemento-funcion] (not= funcion elemento-funcion)) funcion-con-argumentos)
+    (filter (fn [elementoFuncion] (not= funcion elementoFuncion)) funcionConArgumentos)
   )
 )
 
 ; En caso de que un argumento no sea un tipo basico, se lleva a cabo su ejecución
-(defn resolver-argumento [argumento dato estado]
-  (if (= (tipo-basico? argumento) true)
+(defn resolverArgumento [argumento dato estado]
+  (if (= (tipoBasico? argumento) true)
     argumento
-    (ejecutar-funcion argumento dato estado)
+    (ejecutarFuncion argumento dato estado)
   )
 )
 
-(defn obtener-argumentos-ejecutables [funcion-con-argumentos dato estado]
+(defn obtenerArgumentosEjecutables [funcionConArgumentos dato estado]
   (let [
-          funcion     (obtener-nombre-funcion funcion-con-argumentos)
-          argumentos  (obtener-argumentos funcion-con-argumentos)
+          funcion     (obtenerNombreFuncion funcionConArgumentos)
+          argumentos  (obtenerArgumentos funcionConArgumentos)
         ]
-    (map (fn [argumento] (resolver-argumento argumento dato estado)) argumentos)
+    (map (fn [argumento] (resolverArgumento argumento dato estado)) argumentos)
   )
 )
 
 ; Para cada una de las funciones que se definen es necesario implementar los sig multimetodos:
 ; + funcion?
-; + ejecutar-funcion
-; + precondiciones-validas?
+; + ejecutarFuncion
+; + precondicionesValidas?
 
 ; Definicion de funcion =
 (defmethod funcion? '= [funcion] true)
 
-(defmethod ejecutar-funcion '= [funcion-con-argumentos dato estado]
+(defmethod ejecutarFuncion '= [funcionConArgumentos dato estado]
   (let [
-          argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
+          argumentos (obtenerArgumentosEjecutables funcionConArgumentos dato estado)
           resultado  (apply = argumentos)
         ]
     resultado
   )
 )
 
-(defmethod precondiciones-validas? '= [funcion argumentos dato estado]
-  (validar-tipos funcion argumentos dato estado)
+(defmethod precondicionesValidas? '= [funcion argumentos dato estado]
+  (validarTipos funcion argumentos dato estado)
 )
 
-(defmethod ejecutar-funcion :default [funcion-con-argumentos dato estado] funcion-con-argumentos)
+(defmethod ejecutarFuncion :default [funcionConArgumentos dato estado] funcionConArgumentos)
 
 ; Definicion de funcion =
 (defmethod funcion? '!= [funcion] true)
 
-(defmethod ejecutar-funcion '!= [funcion-con-argumentos dato estado]
+(defmethod ejecutarFuncion '!= [funcionConArgumentos dato estado]
   (let [
-          argumentos (obtener-argumentos-ejecutables funcion-con-argumentos dato estado)
+          argumentos (obtenerArgumentosEjecutables funcionConArgumentos dato estado)
           resultado  (apply not= argumentos)
         ]
     resultado
   )
 )
 
-(defmethod precondiciones-validas? '!= [funcion argumentos dato estado]
-  (validar-tipos funcion argumentos dato estado)
+(defmethod precondicionesValidas? '!= [funcion argumentos dato estado]
+  (validarTipos funcion argumentos dato estado)
 )
 
-(defmethod ejecutar-funcion :default [funcion-con-argumentos dato estado] 
-  (if (tipo-basico? funcion-con-argumentos)
-    funcion-con-argumentos
+(defmethod ejecutarFuncion :default [funcionConArgumentos dato estado] 
+  (if (tipoBasico? funcionConArgumentos)
+    funcionConArgumentos
     false
   )
 )
 
 (defmethod funcion? :default [funcion] false)
 
-(defmethod precondiciones-validas? :default [funcion argumentos dato estado] false)
+(defmethod precondicionesValidas? :default [funcion argumentos dato estado] false)
