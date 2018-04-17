@@ -3,7 +3,7 @@
   (require  [interprete.procesamiento :refer :all])
   (require  [interprete.funciones-globales :refer :all])
   (require  [clojure.string :as str])
-  (require  [estado :as est]))
+  (require  [estado.estado :as est]))
 
 ; Definicion de funcion concat
 (defmethod funcion? 'concat [funcion] true)

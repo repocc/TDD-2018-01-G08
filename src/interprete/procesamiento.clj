@@ -3,7 +3,7 @@
   (require  [tipos.funciones-implementacion :refer :all])
   (require  [interprete.funciones-globales :refer :all])
   (require  [tipos.tipos :refer :all])
-  (require  [estado_auxiliar :as est_aux]))
+  (require  [estado.estado_auxiliar :as est_aux]))
 
 (defn obtenerCeros [argumentos dato estado]
   (filter (fn [argumento]

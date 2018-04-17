@@ -1,10 +1,10 @@
 (ns estado.contador-test
   (:require
     [clojure.test :refer :all]
-    [estado.contador :refer :all]
-    [estado :refer :all]
+    [reglas.contador :refer :all]
+    [estado.estado :refer :all]
     [setup.reglas-ejemplo :as reglasEjemplo] :reload-all)
-  (:import [estado Estado]))
+  (:import [estado.estado Estado]))
 
 (deftest test-agregarContador-en-un-estado-sin-ningun-contador-agrega-un-contador-en-el-mapa-de-contadores
   (let [estado (assoc-in (Estado. {} '()) [':reglas 'define-counter] {})]

@@ -1,7 +1,7 @@
 (ns estado.contador-test
   (:require
     [clojure.test :refer :all]
-    [estado.senyal :refer :all]
+    [reglas.senyal :refer :all]
     [setup.reglas-ejemplo :as reglasEjemplo] :reload-all)
   (:import [estado Estado]))
 

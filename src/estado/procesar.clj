@@ -1,6 +1,6 @@
-(ns procesar
+(ns estado.procesar
   (:require
-    [estado :refer :all]
+    [estado.estado :refer :all]
     [interprete.definiciones :refer :all]
     [interprete.procesamiento :refer :all]
     [tipos.bool-funciones :refer :all]

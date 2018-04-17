@@ -9,9 +9,9 @@
 ;   condición             <booleano o lista ejecutable>
 ; )
 
-(ns estado.senyal
+(ns reglas.senyal
   (:require
-    [estado :refer :all] :reload-all))
+    [estado.estado :as est] :reload-all))
 
 (defn agregarSenyal
   "Agrega al mapa de senyales la senyal que se está procesando. Devuelve un nuevo estado con la senyal agregada. No se permiten señales con nombres repetidos, las agregaciones de repetidos posteriores pisan a las anteriores."
@@ -23,10 +23,10 @@
       :condicion (last unaSenyalEnDSL)})) ;La condición de la señal (tipo básico o lista ejecutable).
 
 ;Multimétodo que matchea para las reglas que definen senyales, se fija si ya está creado el mapa de senyales (si no, entonces lo crea), y se fija si la senyal específica que se está procesando ya había sido agregada (si no, entonces la agrega al mapa de senyales). Devuelve un nuevo estado con la senyal agregada.
-(defmethod procesarUnaRegla
+(defmethod est/procesarUnaRegla
   'define-signal [estado unaSenyalEnDSL]
   (if (contains? (:reglas estado) 'define-signal) ;Si contiene el mapa de señales...
     (if (contains? (:define-signal (:reglas estado)) (first (keys (first (rest unaSenyalEnDSL))))) ; Si contiene esta señal en particular en el mapa de señales.
       (estado) ;Ya hay una señal idéntica.
       (agregarSenyal estado unaSenyalEnDSL))
-    (agregarSenyal (agregarMapaDeReglasEspecificas estado 'define-signal) unaSenyalEnDSL)))
+    (agregarSenyal (est/agregarMapaDeReglasEspecificas estado 'define-signal) unaSenyalEnDSL)))

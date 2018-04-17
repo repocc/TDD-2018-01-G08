@@ -1,15 +1,16 @@
 ;funciones requeridas en este paquete:
 ;;(procesarListaDeReglas [listaDeReglasEnDSL])
 
-(ns inicializar
+(ns estado.inicializar
   (:require
-    [estado :refer :all]
-    [estado.contador :refer :all]
-    [estado.contadorPaso :refer :all]
-    [estado.senyal :refer :all] :reload-all))
+    [estado.estado :as est]
+    [reglas.contador :as cont]
+    [reglas.contadorPaso :as contP]
+    [reglas.senyal :as sen] :reload-all)
+  (:import [estado.estado Estado]))
 
 ;Multimétodo que matchea para reglas desconocidas. Deja el estado tal cual estaba, no introduce cambios. Devuelve el mismo estado que recibió y consume la regla sin modificar nada.
-(defmethod procesarUnaRegla
+(defmethod est/procesarUnaRegla
   :default [estado unaSenyalEnDSL] estado)
 
 (defn cargarListaDeReglas
@@ -17,8 +18,8 @@
   ;Formato de lista de reglas: ((<regla en DSL>)*)
   [listaDeReglasEnDSL]
   ;TODO(Iván): comprobar que sea una lista.
-  (let [estado (estado.Estado. {} '())] ;Empiezo con un estado vacío.
+  (let [estado (Estado. {} '())] ;Empiezo con un estado vacío.
     (reduce
-      (fn [estado unaReglaEnDSL] (procesarUnaRegla estado unaReglaEnDSL)) ;TODO(Iván): antes del multimétodo, ver que tenga el formato DSL apropiado.
+      (fn [estado unaReglaEnDSL] (est/procesarUnaRegla estado unaReglaEnDSL)) ;TODO(Iván): antes del multimétodo, ver que tenga el formato DSL apropiado.
       estado
       listaDeReglasEnDSL)))
