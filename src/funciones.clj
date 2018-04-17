@@ -12,25 +12,25 @@
 )
 
 (defmethod implementa-funcion? java.lang.Long [funcion argumento dato estado]
-  (number-funciones-implementa-funcion? funcion)
+  (number-implementa-funcion? funcion)
 )
 
 (defmethod implementa-funcion? clojure.lang.Ratio [funcion argumento dato estado]
-  (number-funciones-implementa-funcion? funcion)
+  (number-implementa-funcion? funcion)
 )
 
 (defmethod implementa-funcion? java.lang.Double [funcion argumento dato estado]
-  (number-funciones-implementa-funcion? funcion)
+  (number-implementa-funcion? funcion)
 )
 
 (defmethod implementa-funcion? java.math.BigInteger [funcion argumento dato estado]
-  (number-funciones-implementa-funcion? funcion)
+  (number-implementa-funcion? funcion)
 )
 
 (defmethod implementa-funcion? java.math.BigDecimal [funcion argumento dato estado]
-  (number-funciones-implementa-funcion? funcion)
+  (number-implementa-funcion? funcion)
 )
 
 (defmethod implementa-funcion? java.lang.String [funcion argumento dato estado]
-  (string-funciones-implementa-funcion? funcion)
+  (string-implementa-funcion? funcion)
 )

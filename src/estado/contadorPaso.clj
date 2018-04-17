@@ -22,7 +22,7 @@
       :paso         (nth unContadorPasoEnDSL 2)
       :parametros   (nth unContadorPasoEnDSL 3) ;El vector de parámetros del contadorPaso.
       :condicion    (last unContadorPasoEnDSL) ;La condición del contadorPaso.
-      :acumuladores {}})) ;Un mapa de acumuladores vacío (usarán un vector de parámetros (evaluados) como clave, proveyendo distintas claves para un mismo contador si los parámetros al evaluarse producen distintos valores de tipos.tipos básicos).
+      :acumuladores {}})) ;Un mapa de acumuladores vacío (usarán un vector de parámetros (evaluados) como clave, proveyendo distintas claves para un mismo contador si los parámetros al evaluarse producen distintos valores de tipos básicos).
 
 ; Multimétodo que matchea para las reglas que definen contadoresPaso, se fija si ya está creado el mapa de contadoresPaso (si no, entonces lo crea), y se fija si el contadorPaso específico que se está procesando ya había sido agregado (si no, entonces lo agrega al mapa de contadoresPaso). Devuelve un nuevo estado con el contadorPaso agregado.
 (defmethod procesarUnaRegla
