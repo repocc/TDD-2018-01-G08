@@ -3,9 +3,9 @@
     [estado :refer :all]
     [definiciones :refer :all]
     [procesamiento :refer :all]
-    [bool :refer :all]
-    [string :refer :all]
-    [number :refer :all] :reload-all))
+    [tipos.bool-funciones :refer :all]
+    [tipos.string-funciones :refer :all]
+    [tipos.number-funciones :refer :all] :reload-all))
 
 (defn incrementarAcumuladorCorrespondiente
   "TODO(Iván): Agregar descripción."

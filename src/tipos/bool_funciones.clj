@@ -1,4 +1,4 @@
-(ns bool
+(ns tipos.bool-funciones
   (require  [definiciones :refer :all])
   (require  [aux :refer :all]))
 

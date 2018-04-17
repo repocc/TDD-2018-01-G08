@@ -3,7 +3,7 @@
   (require  [funciones :refer :all])
   (require  [funciones_globales :refer :all])
   (require  [aux :refer :all])
-  (require  [tipos :refer :all])
+  (require  [tipos.tipos :refer :all])
   (require  [estado_auxiliar :as est_aux]))
 
 (defn obtener-ceros [argumentos dato estado]

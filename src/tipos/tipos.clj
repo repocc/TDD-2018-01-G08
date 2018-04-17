@@ -1,4 +1,4 @@
-(ns tipos)
+(ns tipos.tipos)
 
 (defmulti tipo-basico? (fn [arg] (type arg)))
 

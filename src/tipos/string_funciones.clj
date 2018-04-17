@@ -1,4 +1,4 @@
-(ns string
+(ns tipos.string-funciones
   (require  [definiciones :refer :all])
   (require  [procesamiento :refer :all])
   (require  [aux :refer :all])
@@ -6,9 +6,7 @@
   (require  [estado :as est]))
 
 ; Definicion de funcion concat
-(defmethod funcion? 'concat [funcion]
-  true
-)
+(defmethod funcion? 'concat [funcion] true)
 
 (defmethod ejecutar-funcion 'concat [funcion-con-argumentos dato estado]
   (let [
@@ -24,9 +22,7 @@
 )
 
 ; Definicion de funcion includes?
-(defmethod funcion? 'includes? [funcion]
-  true
-)
+(defmethod funcion? 'includes? [funcion] true)
 
 (defmethod ejecutar-funcion 'includes? [funcion-con-argumentos dato estado]
   (let [
@@ -42,9 +38,7 @@
 )
 
 ; Definicion de funcion starts-with?
-(defmethod funcion? 'starts-with? [funcion]
-  true
-)
+(defmethod funcion? 'starts-with? [funcion] true)
 
 (defmethod ejecutar-funcion 'starts-with? [funcion-con-argumentos dato estado]
   (let [
@@ -60,9 +54,7 @@
 )
 
 ; Definicion de funcion ends-with?
-(defmethod funcion? 'ends-with? [funcion]
-  true
-)
+(defmethod funcion? 'ends-with? [funcion] true)
 
 (defmethod ejecutar-funcion 'ends-with? [funcion-con-argumentos dato estado]
   (let [
@@ -78,9 +70,7 @@
 )
 
 ; Definicion de funcion current
-(defmethod funcion? 'current [funcion]
-  true
-)
+(defmethod funcion? 'current [funcion] true)
 
 (defn current [argumento dato estado]
   (let [
@@ -110,9 +100,7 @@
 )
 
 ; Definicion de funcion counter-value
-(defmethod funcion? 'counter-value [funcion]
-  true
-)
+(defmethod funcion? 'counter-value [funcion] true)
 
 (defmethod ejecutar-funcion 'counter-value [funcion-con-argumentos dato estado]
   (let [
@@ -123,15 +111,10 @@
  )
 )
 
-(defmethod precondiciones-validas? 'counter-value [funcion argumentos dato estado]
-  ;(validar-tipos funcion argumentos dato estado)
-  true
-)
+(defmethod precondiciones-validas? 'counter-value [funcion argumentos dato estado] true)
 
 ; Definicion de funcion past
-(defmethod funcion? 'past [funcion]
-  true
-)
+(defmethod funcion? 'past [funcion] true)
 
 (defmethod ejecutar-funcion 'past [funcion-con-argumentos dato estadoConUnDatoPasado]
   (let [

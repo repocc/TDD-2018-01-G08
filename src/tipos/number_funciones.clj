@@ -1,4 +1,4 @@
-(ns number
+(ns tipos.number-funciones
   (require  [definiciones :refer :all])
   (require  [aux :refer :all])
   (require  [procesamiento :refer :all]))

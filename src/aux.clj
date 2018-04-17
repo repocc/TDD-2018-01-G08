@@ -1,6 +1,6 @@
 (ns aux
   (require  [definiciones :refer :all])
-  (require  [tipos :refer :all]))
+  (require  [tipos.tipos :refer :all]))
 
 (defn obtener-argumentos-no-validos [funcion argumentos dato estado]
   (filter (fn [argumento] (= (implementa-funcion? funcion argumento dato estado) false)) argumentos)

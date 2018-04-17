@@ -1,6 +1,6 @@
 (ns funciones_globales
   (require  [definiciones :refer :all])
-  (require  [tipos :refer :all])
+  (require  [tipos.tipos :refer :all])
   (require  [aux :refer :all]))
 
 ; Para cada una de las funciones que se definen es necesario implementar los sig multimetodos:

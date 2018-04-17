@@ -20,7 +20,7 @@
     {
       :parametros   (nth unContadorEnDSL 2) ;El vector de parámetros del contador.
       :condicion    (last unContadorEnDSL) ;La condición del contador.
-      :acumuladores {}})) ;Un mapa de acumuladores vacío (usarán un vector de parámetros (evaluados) como clave, proveyendo distintas claves para un mismo contador si los parámetros al evaluarse producen distintos valores de tipos básicos).
+      :acumuladores {}})) ;Un mapa de acumuladores vacío (usarán un vector de parámetros (evaluados) como clave, proveyendo distintas claves para un mismo contador si los parámetros al evaluarse producen distintos valores de tipos.tipos básicos).
 
 ; Multimétodo que matchea para las reglas que definen contadores, se fija si ya está creado el mapa de contadores (si no, entonces lo crea), y se fija si el contador específico que se está procesando ya había sido agregado (si no, entonces lo agrega al mapa de contadores). Devuelve un nuevo estado con el contador agregado.
 (defmethod procesarUnaRegla

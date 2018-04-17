@@ -10,7 +10,7 @@
   [estado clave]
   (assoc-in estado [':reglas clave] {}))
 
-; Los parámetros de esta función son: el estado, el contadorNombre (que es un string), y el contadorParametros (que es un vector de parámetros, los parámetros pueden ser listas o tipos básicos, si un parámetro del vector es una lista, es porque es una función ejecutable que devuelve uno de los tipos básicos, si es un tipo básico se lo usa tal cual (string, booleano, o número).
+; Los parámetros de esta función son: el estado, el contadorNombre (que es un tipos.string-funciones), y el contadorParametros (que es un vector de parámetros, los parámetros pueden ser listas o tipos.tipos básicos, si un parámetro del vector es una lista, es porque es una función ejecutable que devuelve uno de los tipos.tipos básicos, si es un tipo básico se lo usa tal cual (string, booleano, o número).
 (defn consultarContador
   "TODO(Iván): Agregar descripción."
   [estado contadorNombre contadorParametros]
