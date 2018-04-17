@@ -1,7 +1,7 @@
-(ns procesamiento
-  (require  [definiciones :refer :all])
+(ns interprete.procesamiento
+  (require  [interprete.definiciones :refer :all])
   (require  [tipos.funciones-implementacion :refer :all])
-  (require  [funciones-globales :refer :all])
+  (require  [interprete.funciones-globales :refer :all])
   (require  [tipos.tipos :refer :all])
   (require  [estado_auxiliar :as est_aux]))
 

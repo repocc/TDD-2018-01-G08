@@ -1,8 +1,8 @@
 (ns procesar
   (:require
     [estado :refer :all]
-    [definiciones :refer :all]
-    [procesamiento :refer :all]
+    [interprete.definiciones :refer :all]
+    [interprete.procesamiento :refer :all]
     [tipos.bool-funciones :refer :all]
     [tipos.string-funciones :refer :all]
     [tipos.number-funciones :refer :all] :reload-all))

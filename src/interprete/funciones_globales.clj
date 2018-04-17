@@ -1,5 +1,5 @@
-(ns funciones-globales
-  (require  [definiciones :refer :all])
+(ns interprete.funciones-globales
+  (require  [interprete.definiciones :refer :all])
   (require  [tipos.tipos :refer :all]))
 
 (defn obtenerArgumentosNoValidos [funcion argumentos dato estado]

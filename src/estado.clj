@@ -1,7 +1,7 @@
 (ns estado
   (:require
-    [procesamiento :refer :all]
-    [definiciones :refer :all] :reload-all))
+    [interprete.procesamiento :refer :all]
+    [interprete.definiciones :refer :all] :reload-all))
 
 (defrecord Estado [reglas datosPasados]) ;Estado será un record con un campo "reglas" (que será un mapa donde se almacenan los contadores y/o señales), y un campo "datosPasados" (que será donde se almacenen los datos ya procesados).
 

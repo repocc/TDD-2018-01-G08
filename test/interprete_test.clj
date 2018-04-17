@@ -1,8 +1,8 @@
 (ns interprete-test
   (:require
     [clojure.test :refer :all]
-    [definiciones :refer :all]
-    [procesamiento :refer :all] :reload-all))
+    [interprete.definiciones :refer :all]
+    [interprete.procesamiento :refer :all] :reload-all))
 
 (deftest validez-expresion-suma-dos-numeros
   (testing "La suma de dos numeros debe ser valida"

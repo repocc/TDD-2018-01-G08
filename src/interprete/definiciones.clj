@@ -1,4 +1,4 @@
-(ns definiciones)
+(ns interprete.definiciones)
 
 (def ERROR 'ERROR)
 

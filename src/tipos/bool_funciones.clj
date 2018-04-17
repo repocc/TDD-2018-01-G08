@@ -1,6 +1,6 @@
 (ns tipos.bool-funciones
-  (require  [definiciones :refer :all])
-  (require  [funciones-globales :refer :all]))
+  (require  [interprete.definiciones :refer :all])
+  (require  [interprete.funciones-globales :refer :all]))
 
 ; Definicion de funcion or
 (defmethod funcion? 'or [funcion] true)

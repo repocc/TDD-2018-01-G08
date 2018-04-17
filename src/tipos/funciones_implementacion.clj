@@ -1,5 +1,5 @@
 (ns tipos.funciones-implementacion
-  (require  [definiciones :refer :all])
+  (require  [interprete.definiciones :refer :all])
   (require  [tipos.number-definicion-funciones :refer :all])
   (require  [tipos.string-definicion-funciones :refer :all])
   (require  [tipos.bool-definicion-funciones :refer :all]))

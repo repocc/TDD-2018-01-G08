@@ -1,7 +1,7 @@
 (ns tipos.number-funciones
-  (require  [definiciones :refer :all])
-  (require  [funciones-globales :refer :all])
-  (require  [procesamiento :refer :all]))
+  (require  [interprete.definiciones :refer :all])
+  (require  [interprete.funciones-globales :refer :all])
+  (require  [interprete.procesamiento :refer :all]))
 
 ; Definicion de funcion +
 (defmethod funcion? '+ [funcion] true)
