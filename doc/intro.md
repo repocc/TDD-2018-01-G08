@@ -49,7 +49,17 @@ Se utilizaron multimétodos para manejar la ejecución de las distintas expresio
 Se utilizaron las funciones de clojure "[...]-in" a fin de "modificar" los estados, que son inmutables.
 
 ### -Interprete
-Para llevar a cabo la interpretación del código clojure indicado en cada una de las reglas se determino hacer uso de multimetodos. La anterior decisión se debe a que de acuerdo a nuestras opiniones, los multimetodos nos permitirán una manera clara, extensible y especializada a la hora de resolver la interpretación y ejecución del código.
+Para llevar a cabo la interpretación del código clojure, se determino hacer uso de multimetodos. 
+La anterior decisión se debe a que de acuerdo a nuestras opiniones, los multimetodos nos permitirán una manera clara, extensible y especializada a la hora de resolver la interpretación y ejecución del código.
+Los multimetodos más representativos son:
+1.funcion?
+2.precondicionesValidas?
+3.implementaFuncion?
+4.ejecutarFuncion
+
+Cabe destacar una función muy importante para nuestro modelo: expresionValida? 
+Esta se encarga utilizando el multimetodo precondicionesValidas? de responder si una expresión es válida o no.
+Esta se utilizo para determinar la posterior ejecución o no de una expresión.
 
 ## Estructura del código
 * Se utilizó el archivo provisto "data_processor.clj" como una interfaz entre el código que nosotros escribimos y las funciones que se nos requerían desde "acceptance_test.clj"
@@ -81,7 +91,7 @@ Los defmethod están en:
     * `reglas/contadorPaso.clj`
     * `reglas/senyal.clj`
 ###### interprete/definiciones.clj
-* `defmulti funcion?` nos permite saber que funciones soporta el procesador de reglas.
+* `defmulti funcion?` nos permite conocer si una funcion es soportada por el procesador de reglas.
     * `interprete/funciones_globales.clj`
     * `tipos/bool_funciones.clj`
     * `tipos/number_funciones.clj`
