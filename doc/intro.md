@@ -48,6 +48,9 @@ Se utilizaron multimétodos para manejar la carga de las reglas, en función de 
 Se utilizaron multimétodos para manejar la ejecución de las distintas expresiones y los distintos tipos de datos que usa el sistema.
 Se utilizaron las funciones de clojure "[...]-in" a fin de "modificar" los estados, que son inmutables.
 
+### -Interprete
+Para llevar a cabo la interpretación del código clojure indicado en cada una de las reglas se determino hacer uso de multimetodos. La anterior decisión se debe a que de acuerdo a nuestras opiniones, los multimetodos nos permitirán una manera clara, extensible y especializada a la hora de resolver la interpretación y ejecución del código.
+
 ## Estructura del código
 * Se utilizó el archivo provisto "data_processor.clj" como una interfaz entre el código que nosotros escribimos y las funciones que se nos requerían desde "acceptance_test.clj"
 * La inicialización del estado se realiza desde "inicializar.clj", con una función auxiliar en "inicializar_auxiliares.clj".
@@ -78,22 +81,22 @@ Los defmethod están en:
     * `reglas/contadorPaso.clj`
     * `reglas/senyal.clj`
 ###### interprete/definiciones.clj
-* `defmulti funcion?`
+* `defmulti funcion?` nos permite saber que funciones soporta el procesador de reglas.
     * `interprete/funciones_globales.clj`
     * `tipos/bool_funciones.clj`
     * `tipos/number_funciones.clj`
     * `tipos/string_funciones.clj`
-* `defmulti precondicionesValidas?`
+* `defmulti precondicionesValidas?` nos permite verificar que las precondiciones sean las adecuadas para cada función, se obtiene especialización para cada una de las funciones soportadas. 
     * `interprete/funciones_globales.clj`
     * `tipos/bool_funciones.clj`
     * `tipos/number_funciones.clj`
     * `tipos/string_funciones.clj`
-* `defmulti ejecutarFuncion`
+* `defmulti ejecutarFuncion` nos permite llevar a cabo la forma en que se ejecuta cada una de las funciones soportadas.
     * `interprete/funciones_globales.clj`
     * `tipos/bool_funciones.clj`
     * `tipos/number_funciones.clj`
     * `tipos/string_funciones.clj`
-* `defmulti implementaFuncion?`
+* `defmulti implementaFuncion?` nos permite conocer si un determinado tipo de argumento puede ser aplicado a una función.
     * `interprete/procesamiento.clj`
     * `interprete/funciones_implementacion.clj`
 ###### tipos/bool_definicion_funciones.clj
