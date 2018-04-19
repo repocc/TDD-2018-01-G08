@@ -51,7 +51,9 @@ Se utilizaron las funciones de clojure "[...]-in" a fin de "modificar" los estad
 ### -Interprete
 Para llevar a cabo la interpretación del código clojure, se determino hacer uso de multimetodos.  
 La anterior decisión se debe a que de acuerdo a nuestras opiniones, los multimetodos nos permitirán una manera clara, extensible y especializada a la hora de resolver la interpretación y ejecución del código.
+  
 Los multimetodos más representativos son:  
+  
 1.funcion?  
 2.precondicionesValidas?  
 3.implementaFuncion?  
