@@ -1,7 +1,8 @@
 (ns acceptance-test
   (:require
     [clojure.test :refer :all]
-    [data-processor :refer :all] :reload-all))
+    [data-processor :refer :all]
+    :reload-all))
 
 ;Defines a list of rules (using the Domain Specific Language) for testing the data.
 (def rules '(

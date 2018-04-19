@@ -51,9 +51,9 @@ Se utilizaron las funciones de clojure "[...]-in" a fin de "modificar" los estad
 ### -Interprete
 Para llevar a cabo la interpretación del código clojure, se determino hacer uso de multimetodos.  
 La anterior decisión se debe a que de acuerdo a nuestras opiniones, los multimetodos nos permitirán una manera clara, extensible y especializada a la hora de resolver la interpretación y ejecución del código.
-  
+
 Los multimetodos más representativos son:  
-  
+
 1.funcion?  
 2.precondicionesValidas?  
 3.implementaFuncion?  
@@ -86,7 +86,7 @@ Esta se utilizo para determinar la posterior ejecución o no de una expresión.
 2) TODO(Iván)
 ### Listado de defmultis
 ###### estado/estado.clj
-* `defmulti procesarUnaRegla` determina el tipo de regla a cargar en el estado (contador, contadorPaso, o senyal)
+* `defmulti cargarUnaRegla` determina el tipo de regla a cargar en el estado (contador, contadorPaso, o senyal).
 Los defmethod están en:
     * `estado/inicializar.clj`
     * `reglas/contador.clj`
@@ -94,21 +94,25 @@ Los defmethod están en:
     * `reglas/senyal.clj`
 ###### interprete/definiciones.clj
 * `defmulti funcion?` nos permite conocer si una funcion es soportada por el procesador de reglas.
+Los defmethod están en:
     * `interprete/funciones_globales.clj`
     * `tipos/bool_funciones.clj`
     * `tipos/number_funciones.clj`
     * `tipos/string_funciones.clj`
-* `defmulti precondicionesValidas?` nos permite verificar que las precondiciones sean las adecuadas para cada función, se obtiene especialización para cada una de las funciones soportadas. 
+* `defmulti precondicionesValidas?` nos permite verificar que las precondiciones sean las adecuadas para cada función, se obtiene especialización para cada una de las funciones soportadas.
+Los defmethod están en:
     * `interprete/funciones_globales.clj`
     * `tipos/bool_funciones.clj`
     * `tipos/number_funciones.clj`
     * `tipos/string_funciones.clj`
 * `defmulti ejecutarFuncion` nos permite llevar a cabo la forma en que se ejecuta cada una de las funciones soportadas.
+Los defmethod están en:
     * `interprete/funciones_globales.clj`
     * `tipos/bool_funciones.clj`
     * `tipos/number_funciones.clj`
     * `tipos/string_funciones.clj`
 * `defmulti implementaFuncion?` nos permite conocer si un determinado tipo de argumento puede ser aplicado a una función.
+Los defmethod están en:
     * `interprete/procesamiento.clj`
     * `interprete/funciones_implementacion.clj`
 ###### tipos/bool_definicion_funciones.clj

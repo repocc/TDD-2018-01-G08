@@ -14,6 +14,14 @@
   [estado clave]
   (assoc-in estado [':reglas clave] {}))
 
+(defmulti cargarUnaRegla
+  "Agrega una regla conocida al estado a partir de la lista que la expresa en DSL, o deja el estado tal y como está si está vacía la lista que expresa en DSL la regla. Devuelve un nuevo estado con la regla agregada."
+  (fn [estado identificadorDeRegla] (first identificadorDeRegla)))
+
+;Multimétodo que matchea para reglas desconocidas. Deja el estado tal cual estaba, no introduce cambios. Devuelve el mismo estado que recibió y consume la regla sin modificar nada.
+(defmethod cargarUnaRegla
+  :default [estado unaSenyalEnDSL] estado)
+
 ; Los parámetros de esta función son: el estado, el contadorNombre (que es un string), y el contadorParametros (que es un vector de parámetros, los parámetros pueden ser listas o tipos básicos, si un parámetro del vector es una lista, es porque es una función ejecutable que devuelve uno de los tipos básicos, si es un tipo básico se lo usa tal cual (string, booleano, o número).
 (defn consultarContador
   "TODO(Iván): Agregar descripción."
@@ -29,10 +37,6 @@
         0 ;Si el acumulador no existía (para esa combinación de parámetros no se contó ningun dato aún.
         acumulador)) ;Si el acumulador si existía (tip: el valor va a ser >0).
     def/ERROR)) ;TODO(Iván): esto es temporal definir algo como ERROR.
-
-(defmulti procesarUnaRegla
-  "Agrega una regla conocida al estado a partir de la lista que la expresa en DSL, o deja el estado tal y como está si está vacía la lista que expresa en DSL la regla. Devuelve un nuevo estado con la regla agregada."
-  (fn [estado identificadorDeRegla] (first identificadorDeRegla)))
 
 (defn obtenerElDatoPasado
   [estadoConUnDatoPasado]

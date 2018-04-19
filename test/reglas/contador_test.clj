@@ -1,9 +1,10 @@
-(ns estado.contador-test
+(ns reglas.contador-test
   (:require
     [clojure.test :refer :all]
     [reglas.contador :refer :all]
     [estado.estado :refer :all]
-    [setup.reglas-ejemplo :as reglasEjemplo] :reload-all)
+    [setup.reglas-ejemplo :as reglasEjemplo]
+    :reload-all)
   (:import [estado.estado Estado]))
 
 (deftest test-agregarContador-en-un-estado-sin-ningun-contador-agrega-un-contador-en-el-mapa-de-contadores
@@ -33,14 +34,14 @@
         :condicion    (last reglasEjemplo/reglaContadorLlamadoTotalSinParametrosYCondicionTrue)
         :acumuladores {}))))))
 
-(deftest test-procesarUnaRegla-de-contador-con-estado-vacio-crea-el-mapa-de-contadores
+(deftest test-cargarUnaRegla-de-contador-con-estado-vacio-crea-el-mapa-de-contadores
   (let [estado (Estado. {} '())]
-    (is (not (empty? (:reglas (procesarUnaRegla estado reglasEjemplo/reglaContadorLlamadoTotalSinParametrosYCondicionTrue)))))))
+    (is (not (empty? (:reglas (cargarUnaRegla estado reglasEjemplo/reglaContadorLlamadoTotalSinParametrosYCondicionTrue)))))))
 
-(deftest test-procesarUnaRegla-de-contador-con-estado-vacio-crea-el-mapa-de-contadores-con-nombre-define-counter
+(deftest test-cargarUnaRegla-de-contador-con-estado-vacio-crea-el-mapa-de-contadores-con-nombre-define-counter
   (let [estado (Estado. {} '())]
-    (is (= 'define-counter (first (keys (:reglas (procesarUnaRegla estado reglasEjemplo/reglaContadorLlamadoTotalSinParametrosYCondicionTrue))))))))
+    (is (= 'define-counter (first (keys (:reglas (cargarUnaRegla estado reglasEjemplo/reglaContadorLlamadoTotalSinParametrosYCondicionTrue))))))))
 
-(deftest test-procesarUnaRegla-de-contador-con-estado-vacio-crea-un-solo-mapa-de-reglas-especificas
+(deftest test-cargarUnaRegla-de-contador-con-estado-vacio-crea-un-solo-mapa-de-reglas-especificas
   (let [estado (Estado. {} '())]
-    (is (= 1 (count (keys (:reglas (procesarUnaRegla estado reglasEjemplo/reglaContadorLlamadoTotalSinParametrosYCondicionTrue))))))))
+    (is (= 1 (count (keys (:reglas (cargarUnaRegla estado reglasEjemplo/reglaContadorLlamadoTotalSinParametrosYCondicionTrue))))))))
