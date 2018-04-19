@@ -2,9 +2,9 @@
 
 (ns data-processor
   (:require
-    [estado.inicializar :as inic]
-    [estado.estado :as est]
-    [estado.procesar :as proc]
+    [estado.estado :as est] ;consultarContador
+    [estado.inicializar :as inic] ;cargarListaDeReglas
+    [estado.procesar :as proc] ;procesar
     :reload-all))
 
 (defn initialize-processor

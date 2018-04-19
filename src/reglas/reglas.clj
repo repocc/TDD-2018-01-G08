@@ -1,4 +1,4 @@
-;funciones requeridas de este archivo:
+;Funciones requeridas de este archivo:
 ;;(formatoCorrectoListaDeReglasEnDSL? [listaDeReglasEnDSL])
 ;;(formatoCorrectoUnaReglaEnDSL? [unaReglaEnDSL])
 
@@ -20,7 +20,7 @@
   (set verificadores))
 
 (defn agregarVerificadorReglaEnFormatoDSL
-  "TODO"
+  "Se agregan los verificadoresAAgregar al setDeVerificadores. Devuelve un nuevo setDeVerificadores actualizado."
   [setDeVerificadores & verificadoresAAgregar]
   (reduce conj setDeVerificadores verificadoresAAgregar))
 

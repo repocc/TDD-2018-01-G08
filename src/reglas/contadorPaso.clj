@@ -1,5 +1,5 @@
-; funciones requeridas de este archivo:
-;; (defmethod cargarUnaRegla 'define-step-counter [estado unContadorPasoEnDSL])
+;Funciones requeridas de este archivo:
+;;(defmethod cargarUnaRegla 'define-step-counter [estado unContadorPasoEnDSL])
 ; DSL:
 ; (define-step-counter
 ;   nombre     <string>

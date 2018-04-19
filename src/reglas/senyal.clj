@@ -1,5 +1,5 @@
-; funciones requeridas de este archivo:
-;; (defmethod cargarUnaRegla 'define-signal [estado unaSenyalEnDSL])
+;Funciones requeridas de este archivo:
+;;(defmethod cargarUnaRegla 'define-signal [estado unaSenyalEnDSL])
 ; DSL:
 ; (define-signal
 ;   nombreSeñalYResultado <mapa>{

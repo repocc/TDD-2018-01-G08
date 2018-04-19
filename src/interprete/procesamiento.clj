@@ -78,7 +78,7 @@
     false))
 
 (defn ejecutarFuncionContemplandoPast
-  ;TODO (Iván) Este defn lo tuve que poner acá porque es el mejor lugar que encontré sin tener que poner otro require en procesar.clj.
+  ;TODO(Iván) Este defn lo tuve que poner acá porque es el mejor lugar que encontré sin tener que poner otro require en procesar.clj. Revisar ubicación.
   "TODO(Iván): agregar descripción."
   [funcionConArgumentos dato estado datosPasadosLista]
   ;Si hay algun past en funcionConArgumentos, entonces sacar todos los datosPasados de estado, y hacer un foreach de cada dato metiendo ese dato en el historial de estado, y llamando al ejecutarFuncion comun. El foreach se corta cuando da true la evaluacion o se acaban los datosPasados.

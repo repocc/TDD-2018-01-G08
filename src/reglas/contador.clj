@@ -1,5 +1,5 @@
-; funciones requeridas de este archivo:
-;; (defmethod cargarUnaRegla 'define-counter [estado unContadorEnDSL])
+;Funciones requeridas de este archivo:
+;;(defmethod cargarUnaRegla 'define-counter [estado unContadorEnDSL])
 ; DSL:
 ; (define-counter
 ;   nombre     <string>
@@ -10,7 +10,7 @@
 (ns reglas.contador
   (:require
     [funcionesGenerales :refer :all]
-    [estado.estado :as est]
+    [estado.estado :as est] ;cargarUnaRegla, agregarMapaDeReglasEspecificas
     :reload-all))
 
 (defn formatoCorrectoUnaReglaContadorEnDSL?
