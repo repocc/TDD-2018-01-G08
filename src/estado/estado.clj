@@ -9,6 +9,10 @@
 
 (defrecord Estado [reglas datosPasados]) ;Estado será un registro con un campo "reglas" (que será un mapa donde se almacenan los contadores y/o señales), y un campo "datosPasados" (que será una lista donde se almacenen los datos ya procesados).
 
+(defn crearEstadoVacio
+  []
+  (Estado. {} '()))
+
 (defn agregarMapaDeReglasEspecificas
   "Agrega al estado el mapa que tendrá todas las reglas de un determinado tipo (contadores, señales, etc.). Devuelve un nuevo esta con dicho mapa agregado (la clave del mapa es la sentencia de DSL usada para definir la señal)."
   [estado clave]
