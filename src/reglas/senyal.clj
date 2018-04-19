@@ -6,7 +6,7 @@
 ;     clave: nombreSeñal<string>
 ;     valor: resultado<tipo básico o lista ejecutable>
 ;   }
-;   condición             <booleano o lista ejecutable>
+;   condición             <bool o lista ejecutable>
 ; )
 
 (ns reglas.senyal

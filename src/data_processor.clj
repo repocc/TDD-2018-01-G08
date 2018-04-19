@@ -1,14 +1,11 @@
-;wrapper en inglés del archivo de la cátedra.
-;funciones requeridas en este namespace:
-;;(process-data [estado datos])
-;;(query-counter [estado contadorNombre contadorParametros])
-;;(initialize-processor [listaDeReglasEnDSL])
+;API provista con el enunciado del trabajo práctico.
 
 (ns data-processor
   (:require
     [estado.inicializar :as inic]
     [estado.estado :as est]
-    [estado.procesar :as proc] :reload-all))
+    [estado.procesar :as proc]
+    :reload-all))
 
 (defn initialize-processor
   "Recibe una lista de reglas expresadas en el lenguage específico de dominio (DSL), cada una de las cuales se representa como una lista. Retorna un \"estado\" con las reglas cargadas."

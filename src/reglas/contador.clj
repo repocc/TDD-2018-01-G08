@@ -1,15 +1,16 @@
-; funciones requeridas en este paquete:
+; funciones requeridas de este archivo:
 ;; (defmethod procesarUnaRegla 'define-counter [estado unContadorEnDSL])
 ; DSL:
 ; (define-counter
 ;   nombre     <string>
-;   parámetros <vector de un tipo básico o listas ejecutables>
-;   condición  <booleano o lista ejecutable>
+;   parámetros <vector de tipos básicos y/o listas ejecutables>
+;   condición  <bool o lista ejecutable>
 ; )
 
 (ns reglas.contador
   (:require
-    [estado.estado :as est] :reload-all))
+    [estado.estado :as est]
+    :reload-all))
 
 (defn agregarContador
   "Agrega al mapa de contadores el contador que se está procesando. Devuelve un nuevo estado con el contador agregado. No se permiten contadores con nombres repetidos, las agregaciones de repetidos posteriores pisan a las anteriores."

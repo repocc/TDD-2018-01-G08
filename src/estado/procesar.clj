@@ -1,11 +1,12 @@
 (ns estado.procesar
   (:require
-    [estado.estado :refer :all]
-    [interprete.definiciones :refer :all]
-    [interprete.procesamiento :refer :all]
+    [estado.estado :as est]
+    [interprete.definiciones :as def]
+    [interprete.procesamiento :as proc]
     [tipos.bool-funciones :refer :all]
     [tipos.string-funciones :refer :all]
-    [tipos.number-funciones :refer :all] :reload-all))
+    [tipos.number-funciones :refer :all]
+    :reload-all))
 
 (defn incrementarAcumuladorCorrespondiente
   "TODO(Iván): Agregar descripción."
@@ -17,22 +18,22 @@
       [acumulador]
       (if (nil? acumulador) ;Cuando el acumulador es cero, es porque nunca se había dado esta combinación de parámetros, por lo cual la clave no existe en el mapa (porque nunca fue incrementada antes y no se cargan en cero al principio, se espera a que haya que incrementarlas para meter la combinación de parámetros al mapa) y retorna "nil".
         (if (contains? (get-in estado [:reglas 'define-counter contadorNombre]) :paso)
-          (ejecutarFuncion (get-in estado [:reglas 'define-counter contadorNombre :paso]) dato estado) ;TODO CHEQUEAR QUE SEA FUNCION.
+          (def/ejecutarFuncion (get-in estado [:reglas 'define-counter contadorNombre :paso]) dato estado) ;TODO CHEQUEAR QUE SEA FUNCION.
           1)
         (if (contains? (get-in estado [:reglas 'define-counter contadorNombre]) :paso)
-          (+ (ejecutarFuncion (get-in estado [:reglas 'define-counter contadorNombre :paso]) dato estado) acumulador) ;TODO CHEQUEAR QUE SEA FUNCION.
+          (+ (def/ejecutarFuncion (get-in estado [:reglas 'define-counter contadorNombre :paso]) dato estado) acumulador) ;TODO CHEQUEAR QUE SEA FUNCION.
           (inc acumulador))))))
 
 (defn obtenerParametrosEvaluados
   "TODO(Iván): Agregar descripción."
   [estado dato parametros]
-  (map (fn [parametro] (ejecutarFuncion parametro dato estado)) parametros) ;Me genero una lista con los valores de la evaluación de los parámetros del contador. Listas y vectores son intercambiables al usarlos como clave de un mapa.
+  (map (fn [parametro] (def/ejecutarFuncion parametro dato estado)) parametros) ;Me genero una lista con los valores de la evaluación de los parámetros del contador. Listas y vectores son intercambiables al usarlos como clave de un mapa.
 )
 
 (defn procesarParametrosDeUnContador
   "TODO(Iván): Agregar descripción."
   [estado dato contadorNombre contadorResto] ;"contadorResto" es un mapa de tres elementos: :parametros, :condicion, :acumuladores.
-  (if (every? true? (map (fn [parametro] (expresionValida? parametro dato estado)) (contadorResto :parametros)))
+  (if (every? true? (map (fn [parametro] (proc/expresionValida? parametro dato estado)) (contadorResto :parametros)))
     (let [
       parametrosEvaluados (obtenerParametrosEvaluados estado dato (contadorResto :parametros))]
       (incrementarAcumuladorCorrespondiente estado dato contadorNombre parametrosEvaluados)
@@ -43,21 +44,22 @@
   "TODO(Iván): Agregar descripción."
   [estadoYDato contadorNombre contadorResto] ;"contadorResto" es un mapa de tres elementos: :parametros, :condicion, :acumuladores.
   (let [
-    estado (first estadoYDato)
-    dato   (last estadoYDato)]
+    estado       (first estadoYDato)
+    dato         (last estadoYDato)
+    datosPasados (est/obtenerDatosPasados estado)]
   (if
     (and
-      (expresion-valida-contemplando-past? (contadorResto :condicion) dato estado)
-      (ejecutarFuncion-contemplando-past (contadorResto :condicion) dato estado)) ;"and" cortocircuita, así que no hay error acá. Si no es válida, no la evalúa.
+      (proc/expresionValidaContemplandoPast? (contadorResto :condicion) dato estado datosPasados)
+      (proc/ejecutarFuncionContemplandoPast (contadorResto :condicion) dato estado datosPasados)) ;"and" cortocircuita, así que no hay error acá. Si no es válida, no la evalúa.
     (list (procesarParametrosDeUnContador estado dato contadorNombre contadorResto) dato) ;Evaluar parámetros e incrementar acumulador correspondiente.
     (list estado dato))))
 
 (defn procesarFormulaDeUnaSenyal
   "TODO(Iván): Agregar descripción."
   [estado dato senyalNombre senyalFormula]
-  (if (expresionValida? senyalFormula dato estado)
+  (if (proc/expresionValida? senyalFormula dato estado)
     (let [
-      formulaEvaluada (ejecutarFuncion senyalFormula dato estado)]
+      formulaEvaluada (def/ejecutarFuncion senyalFormula dato estado)]
       (update-in
         estado
         [:senyales]
@@ -70,12 +72,13 @@
   "TODO(Iván): Agregar descripción."
   [estadoYDato senyalNombre senyalResto]
   (let [
-    estado (first estadoYDato)
-    dato   (last estadoYDato)]
+    estado       (first estadoYDato)
+    dato         (last estadoYDato)
+    datosPasados (est/obtenerDatosPasados estado)]
   (if
     (and
-      (expresion-valida-contemplando-past? (senyalResto :condicion) dato estado)
-      (ejecutarFuncion-contemplando-past (senyalResto :condicion) dato estado)) ;"and" cortocircuita, así que no hay error acá. Si no es válida, no la evalúa.
+      (proc/expresionValidaContemplandoPast? (senyalResto :condicion) dato estado datosPasados)
+      (proc/ejecutarFuncionContemplandoPast (senyalResto :condicion) dato estado datosPasados)) ;"and" cortocircuita, así que no hay error acá. Si no es válida, no la evalúa.
     (list (procesarFormulaDeUnaSenyal estado dato senyalNombre (senyalResto :formula)) dato)
     (list estado dato))))
 

@@ -1,9 +1,13 @@
+;Funciones requeridas de este archivo:
+;;(defn consultarContador [estado contadorNombre contadorParametros])
+
 (ns estado.estado
   (:require
-    [interprete.procesamiento :as proc]
-    [interprete.definiciones :as def] :reload-all))
+    [interprete.procesamiento :as proc] ;expresionValida?
+    [interprete.definiciones :as def] ;ejecutarFuncion
+    :reload-all))
 
-(defrecord Estado [reglas datosPasados]) ;Estado será un record con un campo "reglas" (que será un mapa donde se almacenan los contadores y/o señales), y un campo "datosPasados" (que será donde se almacenen los datos ya procesados).
+(defrecord Estado [reglas datosPasados]) ;Estado será un registro con un campo "reglas" (que será un mapa donde se almacenan los contadores y/o señales), y un campo "datosPasados" (que será una lista donde se almacenen los datos ya procesados).
 
 (defn agregarMapaDeReglasEspecificas
   "Agrega al estado el mapa que tendrá todas las reglas de un determinado tipo (contadores, señales, etc.). Devuelve un nuevo esta con dicho mapa agregado (la clave del mapa es la sentencia de DSL usada para definir la señal)."
@@ -14,7 +18,7 @@
 (defn consultarContador
   "TODO(Iván): Agregar descripción."
   [estado contadorNombre contadorParametros]
-  (if (every? true? (map (fn [parametro] (proc/expresionValida? parametro {} estado)) contadorParametros))
+  (if (every? true? (map (fn [parametro] (proc/expresionValida? parametro {} estado)) contadorParametros)) ;TODO(Iván): puedo contemplar past en "expresionValida?" pero como estoy usando "map" no contemplaría varios past al mismo tiempo, sino cada uno por separado.
     (let [
       acumulador
         (get
@@ -38,3 +42,5 @@
 (defn datoPasadoContieneCampo
   [campo unDatoPasado]
   (contains? unDatoPasado campo))
+
+(defn obtenerDatosPasados [estado] (:datosPasados estado))

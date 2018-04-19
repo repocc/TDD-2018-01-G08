@@ -1,9 +1,10 @@
 (ns interprete.procesamiento
-  (require  [interprete.definiciones :refer :all])
-  (require  [tipos.funciones-implementacion :refer :all])
-  (require  [interprete.funciones-globales :refer :all])
-  (require  [tipos.tipos :refer :all])
-  (require  [estado.estado_auxiliar :as est_aux]))
+  (:require
+    [interprete.definiciones :refer :all]
+    [tipos.funciones-implementacion :refer :all]
+    [interprete.funciones-globales :refer :all]
+    [tipos.tipos :refer :all]
+    :reload-all))
 
 (defn obtenerCeros [argumentos dato estado]
   (filter (fn [argumento]
@@ -53,11 +54,10 @@
   (expresionValida? argumento dato estado)
 )
 
-(defn ejecutarFuncion-ciclando-por-datosPasados
+(defn ejecutarFuncionCiclandoPorDatosPasados
   "TODO(Iván): agregar descripción."
-  [funcionConArgumentos dato estado]
+  [funcionConArgumentos dato estado datosPasadosLista]
   (let [
-    datosPasadosLista (est_aux/obtenerDatosPasados estado)
     listaEjecuciones
       (for
         [unDatoPasado datosPasadosLista]
@@ -67,30 +67,29 @@
             false)))]
     (not-every? false? listaEjecuciones)))
 
-(defn hay-past?
+(defn hayPast?
   "TODO(Iván): agregar descripción."
   [funcionConArgumentos]
   (if (seq? funcionConArgumentos)
     (if (= (first funcionConArgumentos) 'past)
       true
-      (let [hayPast (not-every? false? (map hay-past? (rest funcionConArgumentos)))]
+      (let [hayPast (not-every? false? (map hayPast? (rest funcionConArgumentos)))]
         hayPast))
     false))
 
-(defn ejecutarFuncion-contemplando-past
+(defn ejecutarFuncionContemplandoPast
   ;TODO (Iván) Este defn lo tuve que poner acá porque es el mejor lugar que encontré sin tener que poner otro require en procesar.clj.
   "TODO(Iván): agregar descripción."
-  [funcionConArgumentos dato estado]
+  [funcionConArgumentos dato estado datosPasadosLista]
   ;Si hay algun past en funcionConArgumentos, entonces sacar todos los datosPasados de estado, y hacer un foreach de cada dato metiendo ese dato en el historial de estado, y llamando al ejecutarFuncion comun. El foreach se corta cuando da true la evaluacion o se acaban los datosPasados.
-  (if (hay-past? funcionConArgumentos)
-    (ejecutarFuncion-ciclando-por-datosPasados funcionConArgumentos dato estado)
+  (if (hayPast? funcionConArgumentos)
+    (ejecutarFuncionCiclandoPorDatosPasados funcionConArgumentos dato estado datosPasadosLista)
     (ejecutarFuncion funcionConArgumentos dato estado)))
 
-(defn expresion-valida-ciclando-por-datosPasados?
+(defn expresionValidaCiclandoPorDatosPasados?
   "TODO(Iván): agregar descripción."
-  [funcionConArgumentos dato estado]
+  [funcionConArgumentos dato estado datosPasadosLista]
   (let [
-    datosPasadosLista (est_aux/obtenerDatosPasados estado)
     listaEjecuciones
       (for
         [unDatoPasado datosPasadosLista]
@@ -98,7 +97,7 @@
           (expresionValida? funcionConArgumentos dato estadoConUnDatoPasado)))]
     (not-every? false? listaEjecuciones)))
 
-(defn expresion-valida-contemplando-past? [expresion dato estado]
-  (if (hay-past? expresion)
-    (expresion-valida-ciclando-por-datosPasados? expresion dato estado)
+(defn expresionValidaContemplandoPast? [expresion dato estado datosPasadosLista]
+  (if (hayPast? expresion)
+    (expresionValidaCiclandoPorDatosPasados? expresion dato estado datosPasadosLista)
     (expresionValida? expresion dato estado)))

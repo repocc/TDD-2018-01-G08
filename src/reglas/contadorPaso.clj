@@ -5,7 +5,7 @@
 ;   nombre     <string>
 ;   paso       <number>
 ;   parámetros <vector de un tipo básico o listas ejecutables>
-;   condición  <booleano o lista ejecutable>
+;   condición  <bool o lista ejecutable>
 ; )
 
 (ns reglas.contadorPaso
