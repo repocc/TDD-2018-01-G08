@@ -1,0 +1,7 @@
+com/monitoreo/app/core/Saying.class
+com/monitoreo/app/AppConfiguration.class
+com/monitoreo/app/health/TemplateHealthCheck.class
+com/monitoreo/app/resources/MonitoreoResource.class
+com/monitoreo/app/resources/AppResource.class
+com/monitoreo/app/App.class
+com/monitoreo/app/core/MonitoreoSaying.class
